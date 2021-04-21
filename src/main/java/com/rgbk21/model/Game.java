@@ -13,8 +13,6 @@ public class Game {
     private Player winner;
     private Random random;
     private boolean hold;
-    private Integer player1Score;
-    private Integer player2Score;
     private Integer targetScore;
 
     public Game() {
@@ -25,95 +23,89 @@ public class Game {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
+    public Game setGameId(String gameId) {
         this.gameId = gameId;
-    }
-
-    public GamePlay getGamePlay() {
-        return gamePlay;
-    }
-
-    public void setGamePlay(GamePlay gamePlay) {
-        this.gamePlay = gamePlay;
+        return this;
     }
 
     public Player getPlayer1() {
         return player1;
     }
 
-    public void setPlayer1(Player player1) {
+    public Game setPlayer1(Player player1) {
         this.player1 = player1;
+        return this;
     }
 
     public Player getPlayer2() {
         return player2;
     }
 
-    public void setPlayer2(Player player2) {
+    public Game setPlayer2(Player player2) {
         this.player2 = player2;
+        return this;
     }
 
     public GameStatus getGameStatus() {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
+    public Game setGameStatus(GameStatus gameStatus) {
         this.gameStatus = gameStatus;
+        return this;
+    }
+
+    public GamePlay getGamePlay() {
+        return gamePlay;
+    }
+
+    public Game setGamePlay(GamePlay gamePlay) {
+        this.gamePlay = gamePlay;
+        return this;
     }
 
     public DiceRoll getDiceRoll() {
         return diceRoll;
     }
 
-    public void setDiceRoll(DiceRoll diceRoll) {
+    public Game setDiceRoll(DiceRoll diceRoll) {
         this.diceRoll = diceRoll;
+        return this;
     }
 
     public Player getWinner() {
         return winner;
     }
 
-    public void setWinner(Player winner) {
+    public Game setWinner(Player winner) {
         this.winner = winner;
-    }
-
-    public boolean isHold() {
-        return hold;
-    }
-
-    public void setHold(boolean hold) {
-        this.hold = hold;
-    }
-
-    public Integer getTargetScore() {
-        return targetScore;
-    }
-
-    public void setTargetScore(Integer targetScore) {
-        this.targetScore = targetScore;
-    }
-
-    public Integer getPlayer1Score() {
-        return player1Score;
-    }
-
-    public void setPlayer1Score(Integer player1Score) {
-        this.player1Score = player1Score;
-    }
-
-    public Integer getPlayer2Score() {
-        return player2Score;
-    }
-
-    public void setPlayer2Score(Integer player2Score) {
-        this.player2Score = player2Score;
+        return this;
     }
 
     public Random getRandom() {
         return random;
     }
 
-    public void setRandom(Random random) {
+    public Game setRandom(Random random) {
         this.random = random;
+        return this;
+    }
+
+    public boolean isHold() {
+        return hold;
+    }
+
+    public Game setHold(boolean hold) {
+        this.hold = hold;
+        return this;
+    }
+
+    public Integer getTargetScore() {
+        return targetScore;
+    }
+
+    public Game setTargetScore(Integer targetScore) {
+        this.targetScore = targetScore;
+        return this;
     }
 }

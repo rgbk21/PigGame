@@ -17,16 +17,25 @@ import static com.rgbk21.model.GameStatus.*;
 @Service
 public class GameService {
 
-    public Game createNewGame(Player newPlayer, Integer targetScore) {
+    public GamePlay createNewGame(Player newPlayer, Integer targetScore) {
+
         Game game = new Game();
-        game.setGameId(UUID.randomUUID().toString());
-        game.setTargetScore(targetScore);
-        game.setPlayer1(newPlayer);
-        game.setGameStatus(NEW);
-        game.setGamePlay(new GamePlay());
-        game.getGamePlay().setPl1Turn(true);
+
+        game.setGameId(UUID.randomUUID().toString())
+                .setTargetScore(targetScore)
+                .setPlayer1(newPlayer)
+                .setGameStatus(NEW)
+                .setGamePlay(new GamePlay());
+
+        game.getGamePlay()
+                .setPl1Turn(true)
+                .setGameId(game.getGameId())
+                .setTargetScore(targetScore)
+                .setGameStatus(game.getGameStatus());
+
         GameStorage.getInstance().addNewGame(game);
-        return game;
+
+        return game.getGamePlay();
     }
 
     public Game connectToExistingGame(Player player2, String gameId) throws InvalidGameException, GameAlreadyInProgressException {
@@ -71,11 +80,29 @@ public class GameService {
         return gamePlay;
     }
 
-    public GamePlay actionHold(GamePlay gamePlay) throws NoExistingGamesException{
+    public GamePlay actionHold(GamePlay gamePlay) throws NoExistingGamesException {
         Game game = findGame(gamePlay);
         boolean isPl1Turn = game.getGamePlay().isPl1Turn();
         updateTotalScore(game, isPl1Turn);
+        Player winner = checkWinner(game);
+        if (winner != null) {
+            game.setGameStatus(FINISHED);
+            game.setWinner(winner);
+        } else {
+            switchActivePlayer(game);
+        }
         return gamePlay;
+    }
+
+    private Player checkWinner(Game game) {
+        Integer targetScore = game.getGamePlay().getTargetScore();
+        if (game.getGamePlay().getP1TotalScore() >= targetScore) {
+            return game.getPlayer1();
+        } else if (game.getGamePlay().getP2TotalScore() >= targetScore) {
+            return game.getPlayer2();
+        } else {
+            return null;
+        }
     }
 
     private void updateTotalScore(Game game, boolean isPl1Turn) {
@@ -88,7 +115,6 @@ public class GameService {
             Integer p2TotalScore = game.getGamePlay().getP2TotalScore();
             game.getGamePlay().setP2TotalScore(p2PartialScore + p2TotalScore);
         }
-        switchActivePlayer(game);
     }
 
     private Game findGame(GamePlay gamePlay) throws NoExistingGamesException {
