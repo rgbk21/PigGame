@@ -58,8 +58,10 @@ public class GameService {
     // TODO: What happens when no valid games are found???
     // All open games will be returned to the user. It will be upto the user to select which game they want to play
     // Once the user has selected the required game, the connectToExistingGame should be called from the front end
-    public List<Game> connectToRandomGame(Player player2) throws NoExistingGamesException {
+    public List<String> connectToRandomGame(Player player2) throws NoExistingGamesException {
+
         List<Game> allOpenGames;
+
         allOpenGames = GameStorage.getInstance().getAllGames().values().stream()
                 .filter(game -> game.getGameStatus().equals(NEW))
                 .collect(Collectors.toList());
@@ -67,7 +69,10 @@ public class GameService {
         if (allOpenGames.size() == 0) {
             throw new NoExistingGamesException("There are no open games right now");
         }
-        return allOpenGames;
+
+        return allOpenGames.stream()
+                .map(g -> g.getGameId())
+                .collect(Collectors.toList());
     }
 
     public GamePlay actionNewDiceRoll(GamePlay gamePlay) throws NoExistingGamesException {
