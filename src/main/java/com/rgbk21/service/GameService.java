@@ -38,7 +38,7 @@ public class GameService {
         return game.getGamePlay();
     }
 
-    public Game connectToExistingGame(Player player2, String gameId) throws InvalidGameException, GameAlreadyInProgressException {
+    public GamePlay connectToExistingGame(Player player2, String gameId) throws InvalidGameException, GameAlreadyInProgressException {
         if (!GameStorage.getInstance().getAllGames().containsKey(gameId)) {
             throw new InvalidGameException("Game with provided ID does not exist");
         }
@@ -49,10 +49,10 @@ public class GameService {
             throw new GameAlreadyInProgressException("Game already has two players");
         }
 
-        game.setPlayer2(player2);
-        game.setGameStatus(IN_PROGRESS);
+        game.setPlayer2(player2).setGameStatus(IN_PROGRESS);
+        game.getGamePlay().setGameStatus(IN_PROGRESS);
 
-        return game;
+        return game.getGamePlay();
     }
 
     // TODO: What happens when no valid games are found???

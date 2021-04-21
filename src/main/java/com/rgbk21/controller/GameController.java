@@ -1,8 +1,9 @@
 package com.rgbk21.controller;
 
-import com.rgbk21.model.Game;
+import com.rgbk21.exception.GameAlreadyInProgressException;
+import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.model.GamePlay;
-import com.rgbk21.model.Player;
+import com.rgbk21.model.JoinGameRequestHolder;
 import com.rgbk21.model.StartGameRequestHolder;
 import com.rgbk21.service.GameService;
 import org.apache.commons.logging.Log;
@@ -28,6 +29,15 @@ public class GameController {
         LOGGER.info("GameController::startNewGame starts with player:" + requestHolder.getPlayer().getUserName());
         return ResponseEntity.ok(gameService.createNewGame(requestHolder.getPlayer(), requestHolder.getTargetScore()));
     }
+
+    @PostMapping("/connect")
+    public ResponseEntity<GamePlay> connectToGame(@RequestBody JoinGameRequestHolder requestHolder) throws InvalidGameException, GameAlreadyInProgressException {
+        LOGGER.info("GameController::connectToGame starts with player:" + requestHolder.getPlayer() + " :: joining game with id :: " + requestHolder.getGameId());
+        return ResponseEntity.ok(gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId()));
+    }
+
+
+
 
 
 }
