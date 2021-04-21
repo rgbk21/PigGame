@@ -28,7 +28,6 @@ public class GameService {
                 .setGamePlay(new GamePlay());
 
         game.getGamePlay()
-                .setPl1Turn(true)
                 .setGameId(game.getGameId())
                 .setTargetScore(targetScore)
                 .setGameStatus(game.getGameStatus());
@@ -50,7 +49,13 @@ public class GameService {
         }
 
         game.setPlayer2(player2).setGameStatus(IN_PROGRESS);
-        game.getGamePlay().setGameStatus(IN_PROGRESS);
+        game.getGamePlay()
+                .setGameStatus(IN_PROGRESS)
+                .setPl1Turn(true)
+                .setP1TotalScore(0)
+                .setP2TotalScore(0)
+                .setP1PartialScore(0)
+                .setP2PartialScore(0);
 
         return game.getGamePlay();
     }
@@ -82,7 +87,7 @@ public class GameService {
         DiceRoll roll = generateDiceRoll(game);
         game.getGamePlay().setDiceRoll(roll);
         updatePlayerScore(game, roll);
-        return gamePlay;
+        return game.getGamePlay();
     }
 
     public GamePlay actionHold(GamePlay gamePlay) throws NoExistingGamesException {
@@ -96,7 +101,7 @@ public class GameService {
         } else {
             switchActivePlayer(game);
         }
-        return gamePlay;
+        return game.getGamePlay();
     }
 
     private Player checkWinner(Game game) {
