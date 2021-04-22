@@ -96,8 +96,8 @@ public class GameService {
         updateTotalScore(game, isPl1Turn);
         Player winner = checkWinner(game);
         if (winner != null) {
-            game.setGameStatus(FINISHED);
-            game.setWinner(winner);
+            game.setGameStatus(FINISHED).setWinner(winner);
+            game.getGamePlay().setGameStatus(FINISHED).setWinner(winner);
         } else {
             switchActivePlayer(game);
         }

@@ -46,10 +46,16 @@ public class GameController {
         return ResponseEntity.ok(gameService.connectToRandomGame(player));
     }
 
-    @PostMapping("/gameplay")
+    @PostMapping("/gameplay/roll")
     public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
         LOGGER.info("GameController::rollDice:" + gamePlay);
         return ResponseEntity.ok(gameService.actionNewDiceRoll(gamePlay));
+    }
+
+    @PostMapping("/gameplay/hold")
+    public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
+        LOGGER.info("GameController::holdScore:" + gamePlay);
+        return ResponseEntity.ok(gameService.actionHold(gamePlay));
     }
 
 

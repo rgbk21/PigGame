@@ -13,6 +13,7 @@ public class GamePlay {
     private GameStatus gameStatus;
     private boolean pl1Turn;
     private boolean pl2Turn;
+    private Player winner;
 
     public GamePlay() {
     }
@@ -23,6 +24,15 @@ public class GamePlay {
 
     public GamePlay setHold(boolean hold) {
         this.hold = hold;
+        return this;
+    }
+
+    public Player getWinner() {
+        return winner;
+    }
+
+    public GamePlay setWinner(Player winner) {
+        this.winner = winner;
         return this;
     }
 
