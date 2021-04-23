@@ -12,19 +12,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:63343", allowedHeaders = "*")
 @RestController
 @RequestMapping("/game")
 public class GameController {
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
@@ -37,25 +39,33 @@ public class GameController {
     @PostMapping("/connect")
     public ResponseEntity<GamePlay> connectToExistingGame(@RequestBody JoinGameRequestHolder requestHolder) throws InvalidGameException, GameAlreadyInProgressException {
         LOGGER.info("GameController::connectToExistingGame starts with player:" + requestHolder.getPlayer() + " :: joining game with id :: " + requestHolder.getGameId());
-        return ResponseEntity.ok(gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId()));
+        GamePlay play = gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId());
+        // Once P2 connects to a game we will have to notify P1 that the game is now in progress
+        messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
+        return ResponseEntity.ok(play);
     }
 
     @PostMapping("/connect/random")
     public ResponseEntity<List<String>> connectToRandomGame(@RequestBody Player player) throws NoExistingGamesException {
         LOGGER.info("GameController::connectToRandomGame starts with player:" + player.getUserName());
-        return ResponseEntity.ok(gameService.connectToRandomGame(player));
+        List<String> openGames = gameService.connectToRandomGame(player);
+        return ResponseEntity.ok(openGames);
     }
 
     @PostMapping("/gameplay/roll")
     public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
         LOGGER.info("GameController::rollDice:" + gamePlay);
-        return ResponseEntity.ok(gameService.actionNewDiceRoll(gamePlay));
+        GamePlay play = gameService.actionNewDiceRoll(gamePlay);
+        messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
+        return ResponseEntity.ok(play);
     }
 
     @PostMapping("/gameplay/hold")
     public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
         LOGGER.info("GameController::holdScore:" + gamePlay);
-        return ResponseEntity.ok(gameService.actionHold(gamePlay));
+        GamePlay play = gameService.actionHold(gamePlay);
+        messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
+        return ResponseEntity.ok(play);
     }
 
 
