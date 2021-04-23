@@ -30,6 +30,7 @@ public class GameService {
         game.getGamePlay()
                 .setGameId(game.getGameId())
                 .setTargetScore(targetScore)
+                .setP1UserName(game.getPlayer1().getUserName())
                 .setGameStatus(game.getGameStatus());
 
         GameStorage.getInstance().addNewGame(game);
@@ -55,7 +56,8 @@ public class GameService {
                 .setP1TotalScore(0)
                 .setP2TotalScore(0)
                 .setP1PartialScore(0)
-                .setP2PartialScore(0);
+                .setP2PartialScore(0)
+                .setP2UserName(game.getPlayer2().getUserName());
 
         return game.getGamePlay();
     }

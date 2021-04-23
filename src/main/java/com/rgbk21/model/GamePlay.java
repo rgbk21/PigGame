@@ -7,6 +7,8 @@ public class GamePlay {
     private Integer p2TotalScore;
     private Integer p1PartialScore;
     private Integer p2PartialScore;
+    private String p1UserName;
+    private String p2UserName;
     private Integer targetScore;
     private DiceRoll diceRoll;
     private String gameId;
@@ -33,6 +35,24 @@ public class GamePlay {
 
     public GamePlay setWinner(Player winner) {
         this.winner = winner;
+        return this;
+    }
+
+    public String getP1UserName() {
+        return p1UserName;
+    }
+
+    public GamePlay setP1UserName(String p1UserName) {
+        this.p1UserName = p1UserName;
+        return this;
+    }
+
+    public String getP2UserName() {
+        return p2UserName;
+    }
+
+    public GamePlay setP2UserName(String p2UserName) {
+        this.p2UserName = p2UserName;
         return this;
     }
 
