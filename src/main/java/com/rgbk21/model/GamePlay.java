@@ -145,4 +145,24 @@ public class GamePlay {
         this.pl2Turn = pl2Turn;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "GamePlay{" +
+                "hold=" + hold +
+                ", p1TotalScore=" + p1TotalScore +
+                ", p2TotalScore=" + p2TotalScore +
+                ", p1PartialScore=" + p1PartialScore +
+                ", p2PartialScore=" + p2PartialScore +
+                ", p1UserName='" + p1UserName + '\'' +
+                ", p2UserName='" + p2UserName + '\'' +
+                ", targetScore=" + targetScore +
+                ", diceRoll=" + diceRoll +
+                ", gameId='" + gameId + '\'' +
+                ", gameStatus=" + gameStatus +
+                ", pl1Turn=" + pl1Turn +
+                ", pl2Turn=" + pl2Turn +
+                ", winner=" + winner +
+                '}';
+    }
 }

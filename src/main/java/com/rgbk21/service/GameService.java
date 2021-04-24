@@ -122,10 +122,12 @@ public class GameService {
             Integer p1PartialScore = game.getGamePlay().getP1PartialScore();
             Integer p1TotalScore = game.getGamePlay().getP1TotalScore();
             game.getGamePlay().setP1TotalScore(p1PartialScore + p1TotalScore);
+            game.getGamePlay().setP1PartialScore(0);
         } else {
             Integer p2PartialScore = game.getGamePlay().getP2PartialScore();
             Integer p2TotalScore = game.getGamePlay().getP2TotalScore();
             game.getGamePlay().setP2TotalScore(p2PartialScore + p2TotalScore);
+            game.getGamePlay().setP2PartialScore(0);
         }
     }
 
