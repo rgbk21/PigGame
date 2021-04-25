@@ -5,25 +5,31 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.storage.GameStorage;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.rgbk21.model.GameStatus.*;
+import static com.rgbk21.utils.Constants.*;
 
 @Service
 public class GameService {
 
-    public GamePlay createNewGame(Player newPlayer, Integer targetScore) {
+    public GamePlay createNewGame(Player newPlayer, Integer targetScore, HttpServletResponse response) {
 
         Game game = new Game();
+        ResponseCookie cookie = addCookieToResponseWithName(P1_COOKIE_NAME, response);
 
         game.setGameId(UUID.randomUUID().toString())
                 .setTargetScore(targetScore)
                 .setPlayer1(newPlayer)
+                .setP1Cookie(cookie)
                 .setGameStatus(NEW)
                 .setGamePlay(new GamePlay());
 
@@ -38,7 +44,9 @@ public class GameService {
         return game.getGamePlay();
     }
 
-    public GamePlay connectToExistingGame(Player player2, String gameId) throws InvalidGameException, GameAlreadyInProgressException {
+    public GamePlay connectToExistingGame(Player player2, String gameId, HttpServletResponse response)
+            throws InvalidGameException, GameAlreadyInProgressException {
+
         if (!GameStorage.getInstance().getAllGames().containsKey(gameId)) {
             throw new InvalidGameException("Game with provided ID does not exist");
         }
@@ -49,7 +57,12 @@ public class GameService {
             throw new GameAlreadyInProgressException("Game already has two players");
         }
 
-        game.setPlayer2(player2).setGameStatus(IN_PROGRESS);
+        ResponseCookie cookie = addCookieToResponseWithName(P2_COOKIE_NAME, response);
+
+        game.setPlayer2(player2)
+                .setP2Cookie(cookie)
+                .setGameStatus(IN_PROGRESS);
+
         game.getGamePlay()
                 .setGameStatus(IN_PROGRESS)
                 .setPl1Turn(true)
@@ -82,18 +95,43 @@ public class GameService {
                 .collect(Collectors.toList());
     }
 
-    public GamePlay actionNewDiceRoll(GamePlay gamePlay) throws NoExistingGamesException {
+    public GamePlay actionNewDiceRoll(GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response) throws NoExistingGamesException {
 
         Game game = findGame(gamePlay);
 
-        DiceRoll roll = generateDiceRoll(game);
-        game.getGamePlay().setDiceRoll(roll);
-        updatePlayerScore(game, roll);
+        Map<String, String> playerCookies = new HashMap<>();
+        playerCookies = getPlayerCookies(request, playerCookies);
+
+        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_COOKIE_NAME))) {
+            DiceRoll roll = generateDiceRoll(game);
+            game.getGamePlay().setDiceRoll(roll);
+            updatePlayerScore(game, roll);
+
+        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_COOKIE_NAME))) {
+            DiceRoll roll = generateDiceRoll(game);
+            game.getGamePlay().setDiceRoll(roll);
+            updatePlayerScore(game, roll);
+        }
+
         return game.getGamePlay();
     }
 
-    public GamePlay actionHold(GamePlay gamePlay) throws NoExistingGamesException {
+    public GamePlay actionHold(GamePlay gamePlay, HttpServletRequest request) throws NoExistingGamesException {
+
         Game game = findGame(gamePlay);
+
+        Map<String, String> playerCookies = new HashMap<>();
+        playerCookies = getPlayerCookies(request, playerCookies);
+
+        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_COOKIE_NAME))) {
+            updateScoreAndCheckForWinner(game);
+        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_COOKIE_NAME))) {
+            updateScoreAndCheckForWinner(game);
+        }
+        return game.getGamePlay();
+    }
+
+    private void updateScoreAndCheckForWinner(Game game) {
         boolean isPl1Turn = game.getGamePlay().isPl1Turn();
         updateTotalScore(game, isPl1Turn);
         Player winner = checkWinner(game);
@@ -102,18 +140,6 @@ public class GameService {
             game.getGamePlay().setGameStatus(FINISHED).setWinner(winner);
         } else {
             switchActivePlayer(game);
-        }
-        return game.getGamePlay();
-    }
-
-    private Player checkWinner(Game game) {
-        Integer targetScore = game.getGamePlay().getTargetScore();
-        if (game.getGamePlay().getP1TotalScore() >= targetScore) {
-            return game.getPlayer1();
-        } else if (game.getGamePlay().getP2TotalScore() >= targetScore) {
-            return game.getPlayer2();
-        } else {
-            return null;
         }
     }
 
@@ -128,6 +154,17 @@ public class GameService {
             Integer p2TotalScore = game.getGamePlay().getP2TotalScore();
             game.getGamePlay().setP2TotalScore(p2PartialScore + p2TotalScore);
             game.getGamePlay().setP2PartialScore(0);
+        }
+    }
+
+    private Player checkWinner(Game game) {
+        Integer targetScore = game.getGamePlay().getTargetScore();
+        if (game.getGamePlay().getP1TotalScore() >= targetScore) {
+            return game.getPlayer1();
+        } else if (game.getGamePlay().getP2TotalScore() >= targetScore) {
+            return game.getPlayer2();
+        } else {
+            return null;
         }
     }
 
@@ -177,6 +214,42 @@ public class GameService {
     private DiceRoll generateDiceRoll(Game game) {
         int roll = game.getRandom().nextInt(6) + 1;
         return DiceRoll.getEnum(roll);
+    }
+
+    private ResponseCookie addCookieToResponseWithName(String name, HttpServletResponse response) {
+
+//        Cookie cookie = new Cookie(name, UUID.randomUUID().toString());
+//        cookie.setSecure(true);
+//        cookie.setHttpOnly(true);
+//        cookie.setMaxAge(7 * 24 * 60 * 60); // expires in 7 days
+//        cookie.setPath("/");
+////        cookie.setDomain("http://127.0.0.1");
+//        response.addCookie(cookie);
+
+        ResponseCookie resCookie = ResponseCookie.from(name, UUID.randomUUID().toString())
+                .httpOnly(true)
+                .sameSite("None")
+                .secure(true)
+                .path("/")
+//                .domain("localhost:63343")
+                .maxAge(SEVEN_DAYS)
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, resCookie.toString());
+
+        return resCookie;
+    }
+
+    private Map<String, String> getPlayerCookies(HttpServletRequest request, Map<String, String> playerCookies) {
+        Cookie[] cookies = request.getCookies();
+
+        // Verify that the person making the move is in fact the person whose move we are waiting for
+        if (cookies != null) {
+            playerCookies = Arrays.stream(cookies)
+                    .filter(c -> c.getName().equals(P1_COOKIE_NAME) || c.getName().equals(P2_COOKIE_NAME))
+                    .collect(Collectors.toMap(Cookie::getName, Cookie::getValue));
+        }
+        return playerCookies;
     }
 
 

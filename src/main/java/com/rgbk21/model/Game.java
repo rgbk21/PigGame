@@ -1,5 +1,7 @@
 package com.rgbk21.model;
 
+import org.springframework.http.ResponseCookie;
+
 import java.util.Random;
 
 public class Game {
@@ -14,6 +16,8 @@ public class Game {
     private Random random;
     private boolean hold;
     private Integer targetScore;
+    private ResponseCookie p1Cookie;
+    private ResponseCookie p2Cookie;
 
     public Game() {
         random = new Random();
@@ -25,6 +29,24 @@ public class Game {
 
     public Game setGameId(String gameId) {
         this.gameId = gameId;
+        return this;
+    }
+
+    public ResponseCookie getP1Cookie() {
+        return p1Cookie;
+    }
+
+    public Game setP1Cookie(ResponseCookie p1Cookie) {
+        this.p1Cookie = p1Cookie;
+        return this;
+    }
+
+    public ResponseCookie getP2Cookie() {
+        return p2Cookie;
+    }
+
+    public Game setP2Cookie(ResponseCookie p2Cookie) {
+        this.p2Cookie = p2Cookie;
         return this;
     }
 

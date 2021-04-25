@@ -15,9 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:63343", allowedHeaders = "*")
+@CrossOrigin(
+        origins = "https://rgbk21.github.io/",
+        allowedHeaders = {"Accept","Accept-Language","Set-Cookie","Content-Language","Content-Type","Authorization","Cookie","X-Requested-With","Origin,Host"},
+        allowCredentials = "true"
+)
 @RestController
 @RequestMapping("/game")
 public class GameController {
@@ -31,17 +37,19 @@ public class GameController {
     private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
     @PostMapping("/start")
-    public ResponseEntity<GamePlay> startNewGame(@RequestBody StartGameRequestHolder requestHolder) {
+    public ResponseEntity<GamePlay> startNewGame(@RequestBody StartGameRequestHolder requestHolder, HttpServletResponse response) {
         LOGGER.info("GameController::startNewGame starts with player:" + requestHolder.getPlayer().getUserName());
-        GamePlay play = gameService.createNewGame(requestHolder.getPlayer(), requestHolder.getTargetScore());
+        GamePlay play = gameService.createNewGame(requestHolder.getPlayer(), requestHolder.getTargetScore(), response);
         LOGGER.info("GameController::startNewGame ends with Response::" + play.toString());
         return ResponseEntity.ok(play);
     }
 
     @PostMapping("/connect")
-    public ResponseEntity<GamePlay> connectToExistingGame(@RequestBody JoinGameRequestHolder requestHolder) throws InvalidGameException, GameAlreadyInProgressException {
-        LOGGER.info("GameController::connectToExistingGame starts with player:" + requestHolder.getPlayer().getUserName() + " :: joining game with id :: " + requestHolder.getGameId());
-        GamePlay play = gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId());
+    public ResponseEntity<GamePlay> connectToExistingGame(@RequestBody JoinGameRequestHolder requestHolder, HttpServletResponse response)
+            throws InvalidGameException, GameAlreadyInProgressException {
+        LOGGER.info("GameController::connectToExistingGame starts with player:" + requestHolder.getPlayer().getUserName() +
+                " :: joining game with id :: " + requestHolder.getGameId());
+        GamePlay play = gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId(), response);
         LOGGER.info("GameController::connectToExistingGame ends::Response::" + play.toString());
         // Once P2 connects to a game we will have to notify P1 that the game is now in progress
         messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
@@ -57,18 +65,19 @@ public class GameController {
     }
 
     @PostMapping("/gameplay/roll")
-    public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
+    public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response)
+            throws NoExistingGamesException {
         LOGGER.info("GameController::rollDice:RequestJSON:: " + gamePlay.toString());
-        GamePlay play = gameService.actionNewDiceRoll(gamePlay);
+        GamePlay play = gameService.actionNewDiceRoll(gamePlay, request, response);
         LOGGER.info("GameController::rollDice:ResponseJSON:: " + play.toString());
         messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
         return ResponseEntity.ok(play);
     }
 
     @PostMapping("/gameplay/hold")
-    public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay) throws NoExistingGamesException {
+    public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay, HttpServletRequest request) throws NoExistingGamesException {
         LOGGER.info("GameController::holdScore:RequestJSON:: " + gamePlay.toString());
-        GamePlay play = gameService.actionHold(gamePlay);
+        GamePlay play = gameService.actionHold(gamePlay, request);
         LOGGER.info("GameController::holdScore:ResponseJSON:: " + play.toString());
         messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
         return ResponseEntity.ok(play);
