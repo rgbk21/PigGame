@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @CrossOrigin(
-        origins = "https://rgbk21.github.io/",
-        allowedHeaders = {"Accept","Accept-Language","Set-Cookie","Content-Language","Content-Type","Authorization","Cookie","X-Requested-With","Origin,Host"},
+        origins = {"https://rgbk21.github.io", "http://localhost:63343"},
+        allowedHeaders = "*",
         allowCredentials = "true"
 )
 @RestController
@@ -35,6 +35,11 @@ public class GameController {
     private SimpMessagingTemplate messagingTemplate;
 
     private static final Log LOGGER = LogFactory.getLog(GameController.class);
+
+    @GetMapping("/info")
+    public String info() {
+        return "Hello World!";
+    }
 
     @PostMapping("/start")
     public ResponseEntity<GamePlay> startNewGame(@RequestBody StartGameRequestHolder requestHolder, HttpServletResponse response) {

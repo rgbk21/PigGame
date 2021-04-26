@@ -5,6 +5,8 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.storage.GameStorage;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.rgbk21.model.GameStatus.*;
@@ -20,6 +23,8 @@ import static com.rgbk21.utils.Constants.*;
 
 @Service
 public class GameService {
+
+    private static final Log LOGGER = LogFactory.getLog(GameService.class);
 
     public GamePlay createNewGame(Player newPlayer, Integer targetScore, HttpServletResponse response) {
 
@@ -97,6 +102,9 @@ public class GameService {
 
     public GamePlay actionNewDiceRoll(GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response) throws NoExistingGamesException {
 
+        LOGGER.info("GameService::actionNewDiceRoll starts::Logging headers in request");
+        logHeaders(request);
+
         Game game = findGame(gamePlay);
 
         Map<String, String> playerCookies = new HashMap<>();
@@ -113,10 +121,14 @@ public class GameService {
             updatePlayerScore(game, roll);
         }
 
+        LOGGER.info("GameService::actionNewDiceRoll ends");
         return game.getGamePlay();
     }
 
     public GamePlay actionHold(GamePlay gamePlay, HttpServletRequest request) throws NoExistingGamesException {
+
+        LOGGER.info("GameService::actionHold starts::Logging headers in request");
+        logHeaders(request);
 
         Game game = findGame(gamePlay);
 
@@ -241,6 +253,7 @@ public class GameService {
     }
 
     private Map<String, String> getPlayerCookies(HttpServletRequest request, Map<String, String> playerCookies) {
+
         Cookie[] cookies = request.getCookies();
 
         // Verify that the person making the move is in fact the person whose move we are waiting for
@@ -252,5 +265,17 @@ public class GameService {
         return playerCookies;
     }
 
+    private void logHeaders(HttpServletRequest request) {
 
+        LOGGER.info("__Start of header log__");
+        Enumeration<String> headerNames = request.getHeaderNames();
+
+        if (headerNames != null) {
+            while (headerNames.hasMoreElements()) {
+                String name = headerNames.nextElement();
+                LOGGER.info("Name: " + name + ", Value:" + request.getHeader(name));
+            }
+        }
+        LOGGER.info("__End of header log__");
+    }
 }
