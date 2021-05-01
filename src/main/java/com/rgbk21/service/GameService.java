@@ -242,7 +242,7 @@ public class GameService {
         String playerId = UUID.randomUUID().toString();
         ResponseCookie resCookie = ResponseCookie.from(name, playerId)
                 .httpOnly(true)
-                .sameSite("Strict")
+                .sameSite("None")
                 .secure(true)
                 .path("/")
 //                .domain("localhost:63343")
