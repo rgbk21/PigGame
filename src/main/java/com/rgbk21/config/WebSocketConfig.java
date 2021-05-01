@@ -16,7 +16,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/gameplay")
                 // TODO: Difference between setAllowedOriginPatterns and setAllowedOrigin
-                .setAllowedOriginPatterns("http://localhost:63343")
+                .setAllowedOriginPatterns("http://localhost:63343", "https://rgbk21.github.io")
                 .withSockJS();
 
     }

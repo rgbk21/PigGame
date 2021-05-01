@@ -15,7 +15,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static com.rgbk21.model.GameStatus.*;
@@ -29,7 +28,8 @@ public class GameService {
     public GamePlay createNewGame(Player newPlayer, Integer targetScore, HttpServletResponse response) {
 
         Game game = new Game();
-        ResponseCookie cookie = addCookieToResponseWithName(P1_COOKIE_NAME, response);
+        ResponseCookie cookie = addCookieToResponseWithName(P1_PLAYER_ID, response);
+        LOGGER.info("Assigned ID to Player 1: " + cookie.getValue());
 
         game.setGameId(UUID.randomUUID().toString())
                 .setTargetScore(targetScore)
@@ -62,7 +62,8 @@ public class GameService {
             throw new GameAlreadyInProgressException("Game already has two players");
         }
 
-        ResponseCookie cookie = addCookieToResponseWithName(P2_COOKIE_NAME, response);
+        ResponseCookie cookie = addCookieToResponseWithName(P2_PLAYER_ID, response);
+        LOGGER.info("Assigned ID to Player 2: " + cookie.getValue());
 
         game.setPlayer2(player2)
                 .setP2Cookie(cookie)
@@ -107,15 +108,15 @@ public class GameService {
 
         Game game = findGame(gamePlay);
 
-        Map<String, String> playerCookies = new HashMap<>();
-        playerCookies = getPlayerCookies(request, playerCookies);
+        Map<String, String> bothPlayerIdsMap = new HashMap<>();
+        bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
 
-        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_COOKIE_NAME))) {
+        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(bothPlayerIdsMap.get(P1_PLAYER_ID))) {
             DiceRoll roll = generateDiceRoll(game);
             game.getGamePlay().setDiceRoll(roll);
             updatePlayerScore(game, roll);
 
-        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_COOKIE_NAME))) {
+        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(bothPlayerIdsMap.get(P2_PLAYER_ID))) {
             DiceRoll roll = generateDiceRoll(game);
             game.getGamePlay().setDiceRoll(roll);
             updatePlayerScore(game, roll);
@@ -133,11 +134,11 @@ public class GameService {
         Game game = findGame(gamePlay);
 
         Map<String, String> playerCookies = new HashMap<>();
-        playerCookies = getPlayerCookies(request, playerCookies);
+        playerCookies = getBothPlayerIdsFromCookies(request, playerCookies);
 
-        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_COOKIE_NAME))) {
+        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_PLAYER_ID))) {
             updateScoreAndCheckForWinner(game);
-        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_COOKIE_NAME))) {
+        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_PLAYER_ID))) {
             updateScoreAndCheckForWinner(game);
         }
         return game.getGamePlay();
@@ -238,9 +239,10 @@ public class GameService {
 ////        cookie.setDomain("http://127.0.0.1");
 //        response.addCookie(cookie);
 
-        ResponseCookie resCookie = ResponseCookie.from(name, UUID.randomUUID().toString())
+        String playerId = UUID.randomUUID().toString();
+        ResponseCookie resCookie = ResponseCookie.from(name, playerId)
                 .httpOnly(true)
-                .sameSite("None")
+                .sameSite("Strict")
                 .secure(true)
                 .path("/")
 //                .domain("localhost:63343")
@@ -252,15 +254,15 @@ public class GameService {
         return resCookie;
     }
 
-    private Map<String, String> getPlayerCookies(HttpServletRequest request, Map<String, String> playerCookies) {
+    private Map<String, String> getBothPlayerIdsFromCookies(HttpServletRequest request, Map<String, String> playerCookies) {
 
         Cookie[] cookies = request.getCookies();
 
         // Verify that the person making the move is in fact the person whose move we are waiting for
         if (cookies != null) {
             playerCookies = Arrays.stream(cookies)
-                    .filter(c -> c.getName().equals(P1_COOKIE_NAME) || c.getName().equals(P2_COOKIE_NAME))
-                    .collect(Collectors.toMap(Cookie::getName, Cookie::getValue));
+                    .filter(c -> c.getName().equals(P1_PLAYER_ID) || c.getName().equals(P2_PLAYER_ID))
+                    .collect(Collectors.toMap(cookie -> cookie.getName(), cookie1 -> cookie1.getValue()));
         }
         return playerCookies;
     }

@@ -3,14 +3,13 @@ package com.rgbk21.controller;
 import com.rgbk21.exception.GameAlreadyInProgressException;
 import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
-import com.rgbk21.model.GamePlay;
-import com.rgbk21.model.JoinGameRequestHolder;
-import com.rgbk21.model.Player;
-import com.rgbk21.model.StartGameRequestHolder;
+import com.rgbk21.model.*;
 import com.rgbk21.service.GameService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,8 @@ import java.util.List;
 @CrossOrigin(
         origins = {"https://rgbk21.github.io", "http://localhost:63343"},
         allowedHeaders = "*",
-        allowCredentials = "true"
+        allowCredentials = "true",
+        methods = {RequestMethod.POST, RequestMethod.GET}
 )
 @RestController
 @RequestMapping("/game")
@@ -36,9 +36,17 @@ public class GameController {
 
     private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
-    @GetMapping("/info")
-    public String info() {
-        return "Hello World!";
+    @GetMapping("/gameInfo")
+    public ResponseEntity<Hello> info() {
+        Hello hello = new Hello("Hello World!");
+        // 202 OK
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(hello);
+        // 307 Error
+//        return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT).body(hello);
+        // 400 Error
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(hello);
+        // 500 Error
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(hello);
     }
 
     @PostMapping("/start")
