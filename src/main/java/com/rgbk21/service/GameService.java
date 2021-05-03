@@ -108,18 +108,20 @@ public class GameService {
 
         Game game = findGame(gamePlay);
 
-        Map<String, String> bothPlayerIdsMap = new HashMap<>();
-        bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
+        if (game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
+            Map<String, String> bothPlayerIdsMap = new HashMap<>();
+            bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
 
-        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(bothPlayerIdsMap.get(P1_PLAYER_ID))) {
-            DiceRoll roll = generateDiceRoll(game);
-            game.getGamePlay().setDiceRoll(roll);
-            updatePlayerScore(game, roll);
+            if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(bothPlayerIdsMap.get(P1_PLAYER_ID))) {
+                DiceRoll roll = generateDiceRoll(game);
+                game.getGamePlay().setDiceRoll(roll);
+                updatePlayerScore(game, roll);
 
-        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(bothPlayerIdsMap.get(P2_PLAYER_ID))) {
-            DiceRoll roll = generateDiceRoll(game);
-            game.getGamePlay().setDiceRoll(roll);
-            updatePlayerScore(game, roll);
+            } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(bothPlayerIdsMap.get(P2_PLAYER_ID))) {
+                DiceRoll roll = generateDiceRoll(game);
+                game.getGamePlay().setDiceRoll(roll);
+                updatePlayerScore(game, roll);
+            }
         }
 
         LOGGER.info("GameService::actionNewDiceRoll ends");
@@ -133,14 +135,17 @@ public class GameService {
 
         Game game = findGame(gamePlay);
 
-        Map<String, String> playerCookies = new HashMap<>();
-        playerCookies = getBothPlayerIdsFromCookies(request, playerCookies);
+        if (game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
+            Map<String, String> playerCookies = new HashMap<>();
+            playerCookies = getBothPlayerIdsFromCookies(request, playerCookies);
 
-        if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_PLAYER_ID))) {
-            updateScoreAndCheckForWinner(game);
-        } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_PLAYER_ID))) {
-            updateScoreAndCheckForWinner(game);
+            if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(playerCookies.get(P1_PLAYER_ID))) {
+                updateScoreAndCheckForWinner(game);
+            } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_PLAYER_ID))) {
+                updateScoreAndCheckForWinner(game);
+            }
         }
+
         return game.getGamePlay();
     }
 
