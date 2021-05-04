@@ -1,5 +1,5 @@
 # PigGame
-Backend for multiplayer Pig Game | Spring, Web, WebSockets
+Backend for two-player Pig Game | Spring, Web, WebSockets
 
 This game is live and can be played [here](https://rgbk21.github.io/Pig_Game/index.html).
 
