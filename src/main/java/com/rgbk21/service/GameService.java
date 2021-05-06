@@ -5,6 +5,8 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.storage.GameStorage;
+import com.rgbk21.utils.CommonUtils;
+import com.rgbk21.utils.ErrorInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpHeaders;
@@ -49,17 +51,22 @@ public class GameService {
         return game.getGamePlay();
     }
 
-    public GamePlay connectToExistingGame(Player player2, String gameId, HttpServletResponse response)
-            throws InvalidGameException, GameAlreadyInProgressException {
+    public GamePlay connectToExistingGame(Player player2, String gameId, HttpServletResponse response) {
 
         if (!GameStorage.getInstance().getAllGames().containsKey(gameId)) {
-            throw new InvalidGameException("Game with provided ID does not exist");
+            ErrorInfo errorInfo = CommonUtils.createErrorInfo("NO_SUCH_GAME", "Game with provided ID does not exist");
+            GamePlay play = new GamePlay();
+            play.getErrorInfoList().add(errorInfo);
+            return play;
         }
 
         Game game = GameStorage.getInstance().getAllGames().get(gameId);
 
         if (game.getPlayer2() != null) {
-            throw new GameAlreadyInProgressException("Game already has two players");
+            ErrorInfo errorInfo = CommonUtils.createErrorInfo("GAME_IN_PROGRESS", "Game already has two players");
+            GamePlay play = new GamePlay();
+            play.getErrorInfoList().add(errorInfo);
+            return play;
         }
 
         ResponseCookie cookie = addCookieToResponseWithName(P2_PLAYER_ID, response);
@@ -84,8 +91,9 @@ public class GameService {
     // TODO: What happens when no valid games are found???
     // All open games will be returned to the user. It will be upto the user to select which game they want to play
     // Once the user has selected the required game, the connectToExistingGame should be called from the front end
-    public List<String> connectToRandomGame(Player player2) throws NoExistingGamesException {
+    public OpenGames connectToRandomGame(Player player2) {
 
+        OpenGames openGames = new OpenGames();
         List<Game> allOpenGames;
 
         allOpenGames = GameStorage.getInstance().getAllGames().values().stream()
@@ -93,22 +101,28 @@ public class GameService {
                 .collect(Collectors.toList());
 
         if (allOpenGames.size() == 0) {
-            throw new NoExistingGamesException("There are no open games right now");
+            String errorCode = "NO_OPEN_GAMES";
+            String noOpenGamesMsg = "There are no open games right now. You can try creating a new game and have a second player join it.";
+            ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, noOpenGamesMsg);
+            openGames.getErrorInfoList().add(errorInfo);
         }
 
-        return allOpenGames.stream()
+        List<String> gameList = allOpenGames.stream()
                 .map(g -> g.getGameId())
                 .collect(Collectors.toList());
+
+        openGames.setOpenGames(gameList);
+        return openGames;
     }
 
-    public GamePlay actionNewDiceRoll(GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response) throws NoExistingGamesException {
+    public GamePlay actionNewDiceRoll(GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response)  {
 
         LOGGER.info("GameService::actionNewDiceRoll starts::Logging headers in request");
         logHeaders(request);
 
         Game game = findGame(gamePlay);
 
-        if (game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
+        if (!game.getGamePlay().getErrorInfoList().isEmpty() && game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
             Map<String, String> bothPlayerIdsMap = new HashMap<>();
             bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
 
@@ -128,7 +142,7 @@ public class GameService {
         return game.getGamePlay();
     }
 
-    public GamePlay actionHold(GamePlay gamePlay, HttpServletRequest request) throws NoExistingGamesException {
+    public GamePlay actionHold(GamePlay gamePlay, HttpServletRequest request) {
 
         LOGGER.info("GameService::actionHold starts::Logging headers in request");
         logHeaders(request);
@@ -186,11 +200,27 @@ public class GameService {
         }
     }
 
-    private Game findGame(GamePlay gamePlay) throws NoExistingGamesException {
-        return GameStorage.getInstance().getAllGames().values().stream()
-                .filter(g -> g.getGameId().equals(gamePlay.getGameId()))
-                .findFirst()
-                .orElseThrow(() -> (new NoExistingGamesException("Game with provided ID does not exist")));
+    private Game findGame(GamePlay gamePlay) {
+
+        for (Map.Entry<String, Game> gameEntry : GameStorage.getInstance().getAllGames().entrySet()) {
+            if (gameEntry.getValue().getGameId().equals(gamePlay.getGameId())) {
+                return gameEntry.getValue();
+            }
+        }
+
+        // If game is not found then we can return the error message that we want
+        ErrorInfo e = CommonUtils.createErrorInfo("GAME_WITH_ID_DOES_NOT_EXIST", "Game with provided ID does not exist");
+        List<ErrorInfo> errorInfoList = new ArrayList<>();
+        errorInfoList.add(e);
+        Game game = new Game();
+        game.getGamePlay().setErrorInfoList(errorInfoList);
+        return game;
+
+//        return GameStorage.getInstance().getAllGames().values().stream()
+//                .filter(g -> g.getGameId().equals(gamePlay.getGameId()))
+//                .findFirst()
+//                .orElse(game);
+
     }
 
     private void updatePlayerScore(Game game, DiceRoll roll) {

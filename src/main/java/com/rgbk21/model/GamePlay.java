@@ -1,5 +1,10 @@
 package com.rgbk21.model;
 
+import com.rgbk21.utils.ErrorInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class GamePlay {
 
     private boolean hold;
@@ -16,8 +21,10 @@ public class GamePlay {
     private boolean pl1Turn;
     private boolean pl2Turn;
     private Player winner;
+    private List<ErrorInfo> errorInfoList;
 
     public GamePlay() {
+        errorInfoList = new ArrayList<>();
     }
 
     public boolean isHold() {
@@ -146,6 +153,15 @@ public class GamePlay {
         return this;
     }
 
+    public List<ErrorInfo> getErrorInfoList() {
+        return errorInfoList;
+    }
+
+    public GamePlay setErrorInfoList(List<ErrorInfo> errorInfoList) {
+        this.errorInfoList = errorInfoList;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "GamePlay{" +
@@ -163,6 +179,7 @@ public class GamePlay {
                 ", pl1Turn=" + pl1Turn +
                 ", pl2Turn=" + pl2Turn +
                 ", winner=" + winner +
+                ", errorInfoList=" + errorInfoList +
                 '}';
     }
 }

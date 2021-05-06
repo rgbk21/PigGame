@@ -70,9 +70,9 @@ public class GameController {
     }
 
     @PostMapping("/connect/random")
-    public ResponseEntity<List<String>> connectToRandomGame(@RequestBody Player player) throws NoExistingGamesException {
+    public ResponseEntity<OpenGames> connectToRandomGame(@RequestBody Player player) throws NoExistingGamesException {
         LOGGER.info("GameController::connectToRandomGame starts with player:Request::" + player.getUserName());
-        List<String> openGames = gameService.connectToRandomGame(player);
+        OpenGames openGames = gameService.connectToRandomGame(player);
         LOGGER.info("GameController::connectToRandomGame ends with player:Response::" + openGames);
         return ResponseEntity.ok(openGames);
     }
