@@ -78,8 +78,7 @@ public class GameController {
     }
 
     @PostMapping("/gameplay/roll")
-    public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response)
-            throws NoExistingGamesException {
+    public ResponseEntity<GamePlay> rollDice(@RequestBody GamePlay gamePlay, HttpServletRequest request, HttpServletResponse response) {
         LOGGER.info("GameController::rollDice:RequestJSON:: " + gamePlay.toString());
         GamePlay play = gameService.actionNewDiceRoll(gamePlay, request, response);
         LOGGER.info("GameController::rollDice:ResponseJSON:: " + play.toString());
@@ -88,7 +87,7 @@ public class GameController {
     }
 
     @PostMapping("/gameplay/hold")
-    public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay, HttpServletRequest request) throws NoExistingGamesException {
+    public ResponseEntity<GamePlay> holdScore(@RequestBody GamePlay gamePlay, HttpServletRequest request) {
         LOGGER.info("GameController::holdScore:RequestJSON:: " + gamePlay.toString());
         GamePlay play = gameService.actionHold(gamePlay, request);
         LOGGER.info("GameController::holdScore:ResponseJSON:: " + play.toString());

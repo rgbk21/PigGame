@@ -21,6 +21,7 @@ public class Game {
 
     public Game() {
         random = new Random();
+        gamePlay = new GamePlay();
     }
 
     public String getGameId() {

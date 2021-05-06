@@ -102,8 +102,8 @@ public class GameService {
 
         if (allOpenGames.size() == 0) {
             String errorCode = "NO_OPEN_GAMES";
-            String noOpenGamesMsg = "There are no open games right now. You can try creating a new game and have a second player join it.";
-            ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, noOpenGamesMsg);
+            String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it.";
+            ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, errorMsg);
             openGames.getErrorInfoList().add(errorInfo);
         }
 
@@ -122,7 +122,11 @@ public class GameService {
 
         Game game = findGame(gamePlay);
 
-        if (!game.getGamePlay().getErrorInfoList().isEmpty() && game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
+        if (!game.getGamePlay().getErrorInfoList().isEmpty()){
+            return game.getGamePlay();
+        }
+
+        if (game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
             Map<String, String> bothPlayerIdsMap = new HashMap<>();
             bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
 
@@ -136,6 +140,11 @@ public class GameService {
                 game.getGamePlay().setDiceRoll(roll);
                 updatePlayerScore(game, roll);
             }
+        } else {
+            // Game has ended and user is still clicking on the rollDice button
+            ErrorInfo e = CommonUtils.createErrorInfo("GAME_HAS_ENDED", "Game has already ended. Please start a new game.");
+            game.getGamePlay().getErrorInfoList().add(e);
+            return game.getGamePlay();
         }
 
         LOGGER.info("GameService::actionNewDiceRoll ends");
@@ -149,6 +158,10 @@ public class GameService {
 
         Game game = findGame(gamePlay);
 
+        if (!game.getGamePlay().getErrorInfoList().isEmpty()){
+            return game.getGamePlay();
+        }
+
         if (game.getGamePlay().getGameStatus().equals(IN_PROGRESS)) {
             Map<String, String> playerCookies = new HashMap<>();
             playerCookies = getBothPlayerIdsFromCookies(request, playerCookies);
@@ -158,6 +171,11 @@ public class GameService {
             } else if (game.getGamePlay().isPl2Turn() && game.getP2Cookie().getValue().equals(playerCookies.get(P2_PLAYER_ID))) {
                 updateScoreAndCheckForWinner(game);
             }
+        } else {
+            // Game has ended and user is still clicking on the rollDice button
+            ErrorInfo e = CommonUtils.createErrorInfo("GAME_HAS_ENDED", "Game has already ended. Please start a new game.");
+            game.getGamePlay().getErrorInfoList().add(e);
+            return game.getGamePlay();
         }
 
         return game.getGamePlay();
@@ -210,10 +228,8 @@ public class GameService {
 
         // If game is not found then we can return the error message that we want
         ErrorInfo e = CommonUtils.createErrorInfo("GAME_WITH_ID_DOES_NOT_EXIST", "Game with provided ID does not exist");
-        List<ErrorInfo> errorInfoList = new ArrayList<>();
-        errorInfoList.add(e);
         Game game = new Game();
-        game.getGamePlay().setErrorInfoList(errorInfoList);
+        game.getGamePlay().getErrorInfoList().add(e);
         return game;
 
 //        return GameStorage.getInstance().getAllGames().values().stream()
