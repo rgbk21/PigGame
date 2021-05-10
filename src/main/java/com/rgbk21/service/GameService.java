@@ -30,25 +30,35 @@ public class GameService {
     public GamePlay createNewGame(Player newPlayer, Integer targetScore, HttpServletResponse response) {
 
         Game game = new Game();
-        ResponseCookie cookie = addCookieToResponseWithName(P1_PLAYER_ID, response);
-        LOGGER.info("Assigned ID to Player 1: " + cookie.getValue());
 
-        game.setGameId(UUID.randomUUID().toString())
-                .setTargetScore(targetScore)
-                .setPlayer1(newPlayer)
-                .setP1Cookie(cookie)
-                .setGameStatus(NEW)
-                .setGamePlay(new GamePlay());
+        if (isScoreValid(targetScore)) {
+            ResponseCookie cookie = addCookieToResponseWithName(P1_PLAYER_ID, response);
+            LOGGER.info("Assigned ID to Player 1: " + cookie.getValue());
 
-        game.getGamePlay()
-                .setGameId(game.getGameId())
-                .setTargetScore(targetScore)
-                .setP1UserName(game.getPlayer1().getUserName())
-                .setGameStatus(game.getGameStatus());
+            game.setGameId(UUID.randomUUID().toString())
+                    .setTargetScore(targetScore)
+                    .setPlayer1(newPlayer)
+                    .setP1Cookie(cookie)
+                    .setGameStatus(NEW)
+                    .setGamePlay(new GamePlay());
 
-        GameStorage.getInstance().addNewGame(game);
+            game.getGamePlay()
+                    .setGameId(game.getGameId())
+                    .setTargetScore(targetScore)
+                    .setP1UserName(game.getPlayer1().getUserName())
+                    .setGameStatus(game.getGameStatus());
+
+            GameStorage.getInstance().addNewGame(game);
+        } else {
+            ErrorInfo errorInfo = CommonUtils.createErrorInfo("INVALID_TARGET_SCORE", "Target score should be a value between 1 and 100");
+            game.getGamePlay().getErrorInfoList().add(errorInfo);
+        }
 
         return game.getGamePlay();
+    }
+
+    private boolean isScoreValid(Integer targetScore) {
+        return targetScore != null && targetScore >= 1 && targetScore <= 100;
     }
 
     public GamePlay connectToExistingGame(Player player2, String gameId, HttpServletResponse response) {
