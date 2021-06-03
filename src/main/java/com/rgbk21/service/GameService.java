@@ -332,13 +332,15 @@ public class GameService {
 
         LOGGER.info("__Start of header log__");
         Enumeration<String> headerNames = request.getHeaderNames();
+        StringBuilder sb = new StringBuilder();
 
         if (headerNames != null) {
             while (headerNames.hasMoreElements()) {
                 String name = headerNames.nextElement();
-                LOGGER.info("Name: " + name + ", Value:" + request.getHeader(name));
+                sb.append(name).append("::").append(request.getHeader(name)).append(", ");
             }
         }
+        LOGGER.info(sb.toString());
         LOGGER.info("__End of header log__");
     }
 }
