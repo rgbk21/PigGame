@@ -13,20 +13,20 @@ import java.util.Optional;
 @Configuration
 public class GameWebConfig implements WebMvcConfigurer {
 
-    public GameWebConfig() {
-        super();
-    }
+  public GameWebConfig() {
+    super();
+  }
 
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-        Optional<HttpMessageConverter<?>> converter = converters.stream()
-                .filter(c -> c instanceof AbstractJackson2HttpMessageConverter)
-                .findFirst();
+  @Override
+  public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
+    Optional<HttpMessageConverter<?>> converter = converters.stream()
+        .filter(c -> c instanceof AbstractJackson2HttpMessageConverter)
+        .findFirst();
 
-        if (converter.isPresent()) {
-            AbstractJackson2HttpMessageConverter jacksonConverter = (AbstractJackson2HttpMessageConverter) converter.get();
-            jacksonConverter.getObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-            jacksonConverter.getObjectMapper().enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        }
+    if (converter.isPresent()) {
+      AbstractJackson2HttpMessageConverter jacksonConverter = (AbstractJackson2HttpMessageConverter) converter.get();
+      jacksonConverter.getObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+      jacksonConverter.getObjectMapper().enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
+  }
 }

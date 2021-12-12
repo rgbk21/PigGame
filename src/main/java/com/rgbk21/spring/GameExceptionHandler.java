@@ -16,26 +16,26 @@ import java.util.Objects;
 @ControllerAdvice
 public class GameExceptionHandler extends ResponseEntityExceptionHandler {
 
-    public GameExceptionHandler() {
-        super();
-    }
+  public GameExceptionHandler() {
+    super();
+  }
 
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        // HttpStatus status = HttpStatus.BAD_REQUEST; // 400 Bad Request.
-        return handleExceptionInternal(ex, createExceptionBodyMsg(ex), headers, status, request);
-    }
+  @Override
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+    // HttpStatus status = HttpStatus.BAD_REQUEST; // 400 Bad Request.
+    return handleExceptionInternal(ex, createExceptionBodyMsg(ex), headers, status, request);
+  }
 
-    private ErrorInfo createExceptionBodyMsg(HttpMessageNotReadableException ex) {
-        String errorCode = ex.getClass().getSimpleName();
-        String errorMessage6 = ExceptionUtils.getMessage(ex);
-        String errorMessage7 = ExceptionUtils.getRootCauseMessage(ex);
-        String errorMessage5 = ex.toString();
-        String errorMessage2 = ex.getMessage();
-        String errorMessage4 = ex.getLocalizedMessage();
-        String errorMessage3 = Objects.requireNonNull(ex.getCause()).getMessage();
-        String errorMessage = Objects.requireNonNull(ex.getRootCause()).getMessage();
+  private ErrorInfo createExceptionBodyMsg(HttpMessageNotReadableException ex) {
+    String errorCode = ex.getClass().getSimpleName();
+    String errorMessage6 = ExceptionUtils.getMessage(ex);
+    String errorMessage7 = ExceptionUtils.getRootCauseMessage(ex);
+    String errorMessage5 = ex.toString();
+    String errorMessage2 = ex.getMessage();
+    String errorMessage4 = ex.getLocalizedMessage();
+    String errorMessage3 = Objects.requireNonNull(ex.getCause()).getMessage();
+    String errorMessage = Objects.requireNonNull(ex.getRootCause()).getMessage();
 
-        return CommonUtils.createErrorInfo(errorCode, errorMessage);
-    }
+    return CommonUtils.createErrorInfo(errorCode, errorMessage);
+  }
 }
