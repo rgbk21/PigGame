@@ -24,9 +24,9 @@ public class TrustifiEmailService {
 
   public void sendEmail(EmailMessage emailMsgPayload) {
 
-    WebClient.ResponseSpec retrieve = webClient.post()
+    webClient.post()
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .header(Constants.TRUSTIFI_KEY, CommonUtils.getEnvVariable(Constants.TRUSTIFI_URL))
+        .header(Constants.TRUSTIFI_KEY, CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header(Constants.TRUSTIFI_SECRET, CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
         .body(Mono.just(emailMsgPayload), EmailMessage.class)
         .retrieve();
