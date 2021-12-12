@@ -1,50 +1,37 @@
 package com.rgbk21.service;
 
 import com.rgbk21.model.EmailMessage;
+import com.rgbk21.utils.CommonUtils;
+import com.rgbk21.utils.Constants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 public class EmailService {
 
   private static final Log LOGGER = LogFactory.getLog(EmailService.class);
-  private static final String TRUSTIFI_KEY = "TRUSTIFI_KEY";
-  private static final String TRUSTIFI_SECRET = "TRUSTIFI_SECRET";
-  private static final String TRUSTIFI_URL = "TRUSTIFI_URL";
-  private static final String EMAIL_ID = "EMAIL_ID";
+
+  @Autowired private TrustifiEmailService emailService;
 
   public void sendEmail(String gameId) {
     // Get the key, secret, url, emailId from the env
-    String key = "";
-    String secret = "";
-    String url = "";
-    String recipientEmailId = "";
+    String key = CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY);
+    String secret = CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET);
+    String url = CommonUtils.getEnvVariable(Constants.TRUSTIFI_URL);
+    String recipientEmailId = CommonUtils.getEnvVariable(Constants.EMAIL_ID);
 
-    Map<String, String> env = System.getenv();
-
-    for (String name : env.keySet()) {
-      String value = env.get(name);
-      switch (name) {
-        case TRUSTIFI_KEY:
-          key = value;
-          break;
-        case TRUSTIFI_SECRET:
-          secret = value;
-          break;
-        case TRUSTIFI_URL:
-          url = value;
-          break;
-        case EMAIL_ID:
-          recipientEmailId = value;
-          break;
-      }
-    }
     LOGGER.info("EmailService::sendEmail key is: " + key);
     LOGGER.info("EmailService::sendEmail secret is: " + secret);
     LOGGER.info("EmailService::sendEmail url is: " + url);
     LOGGER.info("EmailService::sendEmail recipientEmailId is: " + recipientEmailId);
+
+    EmailMessage emailMessage = new EmailMessage()
+        .setTitle("New Game Request")
+        .setHtml("Game Id: " + gameId)
+        .addRecipient(CommonUtils.getEnvVariable(Constants.EMAIL_ID));
+
+    emailService.sendEmail(emailMessage);
   }
 }
