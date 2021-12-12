@@ -4,6 +4,7 @@ public class EmailResponse {
   private String _id;
   private Integer recipientsCount;
   private Integer emailsLeft;
+  private String created;
 
   public String get_id() {
     return _id;
@@ -20,6 +21,15 @@ public class EmailResponse {
 
   public EmailResponse setRecipientsCount(Integer recipientsCount) {
     this.recipientsCount = recipientsCount;
+    return this;
+  }
+
+  public String getCreated() {
+    return created;
+  }
+
+  public EmailResponse setCreated(String created) {
+    this.created = created;
     return this;
   }
 
