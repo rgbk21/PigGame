@@ -103,7 +103,7 @@ public class GameController {
     return ResponseEntity.ok(play);
   }
 
-  @GetMapping("gameplay/challenge")
+  @GetMapping("/gameplay/challenge")
   public void challengeMe() {
     smsMessagingService.sendSMS();
   }
