@@ -1,5 +1,8 @@
 package com.rgbk21.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EmailResponse {
   private String _id;
   private Integer recipientsCount;
