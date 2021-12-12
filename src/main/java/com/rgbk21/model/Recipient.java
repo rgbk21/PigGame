@@ -1,5 +1,8 @@
 package com.rgbk21.model;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 public class Recipient {
   private String email;
   private String name;
@@ -30,5 +33,14 @@ public class Recipient {
   public Recipient setPhone(Phone phone) {
     this.phone = phone;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("email", email)
+        .add("name", name)
+        .add("phone", phone)
+        .toString();
   }
 }

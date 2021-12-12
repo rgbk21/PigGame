@@ -2,6 +2,7 @@ package com.rgbk21.service;
 
 import com.rgbk21.model.EmailMessage;
 import com.rgbk21.model.EmailResponse;
+import com.rgbk21.model.Phone;
 import com.rgbk21.model.Recipient;
 import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.Constants;
@@ -15,7 +16,8 @@ public class EmailService {
 
   private static final Log LOGGER = LogFactory.getLog(EmailService.class);
 
-  @Autowired private TrustifiEmailService emailService;
+  @Autowired
+  private TrustifiEmailService emailService;
 
   public void sendEmail(String gameId) {
     // Get the key, secret, url, emailId from the env
@@ -29,7 +31,13 @@ public class EmailService {
     LOGGER.info("EmailService::sendEmail url is: " + url);
     LOGGER.info("EmailService::sendEmail recipientEmailId is: " + recipientEmailId);
 
-    Recipient recipient = new Recipient().setEmail(recipientEmailId);
+    Recipient recipient = new Recipient()
+        .setEmail(recipientEmailId)
+        .setName("rgbk21")
+        .setPhone(new Phone()
+            .setCountry_code("+1")
+            .setPhone_number("1111111111"));
+
     EmailMessage emailMessage = new EmailMessage()
         .setTitle("New Game Request")
         .setHtml("Game Id: " + gameId)

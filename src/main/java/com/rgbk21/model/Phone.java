@@ -1,5 +1,8 @@
 package com.rgbk21.model;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 public class Phone {
   private String country_code;
   private String phone_number;
@@ -20,5 +23,13 @@ public class Phone {
   public Phone setPhone_number(String phone_number) {
     this.phone_number = phone_number;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("country_code", country_code)
+        .add("phone_number", phone_number)
+        .toString();
   }
 }
