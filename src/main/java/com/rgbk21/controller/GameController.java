@@ -5,8 +5,7 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.service.GameService;
-import com.rgbk21.service.SMSMessagingService;
-import jakarta.validation.Valid;
+import com.rgbk21.service.EmailService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.util.MultiValueMap;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @CrossOrigin(
     origins = {"https://rgbk21.github.io", "http://localhost:63343"},
@@ -34,7 +31,7 @@ public class GameController {
 
   @Autowired private GameService gameService;
   @Autowired private SimpMessagingTemplate messagingTemplate;
-  @Autowired private SMSMessagingService smsMessagingService;
+  @Autowired private EmailService emailService;
 
   private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
@@ -104,7 +101,8 @@ public class GameController {
   }
 
   @GetMapping("/gameplay/challenge")
-  public void challengeMe() {
-    smsMessagingService.sendSMS();
+  public void challengeMe(@RequestBody StartGameRequestHolder requestHolder, HttpServletResponse response) {
+    ResponseEntity<GamePlay> gamePlay = startNewGame(requestHolder, response);
+    emailService.sendEmail(gamePlay.getBody().getGameId());
   }
 }
