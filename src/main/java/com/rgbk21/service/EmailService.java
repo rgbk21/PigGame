@@ -31,7 +31,9 @@ public class EmailService {
     EmailMessage emailMessage = new EmailMessage()
         .setTitle("New Game Request")
         .setHtml("Game Id: " + gameId)
-        .addRecipient(CommonUtils.getEnvVariable(Constants.EMAIL_ID));
+        .addRecipient(recipientEmailId);
+
+    LOGGER.info("EmailService: sendEmail emailMessage object: " + emailMessage);
 
     EmailResponse emailResponse = emailService.sendEmail(emailMessage);
     LOGGER.info("EmailService: sendEmail _id of sent email: " + emailResponse.get_id());

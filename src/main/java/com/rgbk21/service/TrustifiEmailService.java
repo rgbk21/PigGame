@@ -36,5 +36,4 @@ public class TrustifiEmailService {
         .bodyToMono(EmailResponse.class)
         .block();
   }
-
 }

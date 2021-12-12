@@ -1,5 +1,8 @@
 package com.rgbk21.model;
 
+import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,5 +36,14 @@ public class EmailMessage {
   public EmailMessage addRecipient(String recipient) {
     recipients.add(recipient);
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("title", title)
+        .add("html", html)
+        .add("recipients", recipients)
+        .toString();
   }
 }
