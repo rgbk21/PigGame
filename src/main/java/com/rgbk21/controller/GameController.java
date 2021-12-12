@@ -5,6 +5,7 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.service.GameService;
+import com.rgbk21.service.SMSMessagingService;
 import jakarta.validation.Valid;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,11 +32,9 @@ import java.util.List;
 @RequestMapping("/game")
 public class GameController {
 
-  @Autowired
-  private GameService gameService;
-
-  @Autowired
-  private SimpMessagingTemplate messagingTemplate;
+  @Autowired private GameService gameService;
+  @Autowired private SimpMessagingTemplate messagingTemplate;
+  @Autowired private SMSMessagingService smsMessagingService;
 
   private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
@@ -106,6 +105,6 @@ public class GameController {
 
   @GetMapping("gameplay/challenge")
   public void challengeMe() {
-
+    smsMessagingService.sendSMS();
   }
 }
