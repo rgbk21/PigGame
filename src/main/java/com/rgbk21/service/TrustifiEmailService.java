@@ -31,7 +31,7 @@ public class TrustifiEmailService {
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .header("x-trustifi-key", CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header("x-trustifi-secret", CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
         .body(Mono.just(emailMsgPayload), EmailMessage.class)
         .retrieve()
         .bodyToMono(EmailResponse.class)
