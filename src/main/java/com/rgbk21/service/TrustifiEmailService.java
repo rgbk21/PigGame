@@ -16,6 +16,7 @@ import reactor.core.publisher.Mono;
 public class TrustifiEmailService {
 
   private final WebClient webClient;
+  private final String URI_SEND_EMAIL = "/api/i/v1/email";
 
   public TrustifiEmailService(WebClient.Builder builder) {
     String baseUrl = CommonUtils.getEnvVariable(Constants.TRUSTIFI_URL);
@@ -26,6 +27,7 @@ public class TrustifiEmailService {
   public EmailResponse sendEmail(EmailMessage emailMsgPayload) {
 
     return webClient.post()
+        .uri(URI_SEND_EMAIL)
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .header(Constants.TRUSTIFI_KEY, CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header(Constants.TRUSTIFI_SECRET, CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
