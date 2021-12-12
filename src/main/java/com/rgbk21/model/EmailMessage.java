@@ -1,7 +1,6 @@
 package com.rgbk21.model;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.List;
 public class EmailMessage {
   private String title;
   private String html;
-  private List<String> recipients;
+  private final List<Recipient> recipients;
 
   public EmailMessage() {
     this.recipients = new ArrayList<>();
@@ -33,7 +32,7 @@ public class EmailMessage {
     return this;
   }
 
-  public EmailMessage addRecipient(String recipient) {
+  public EmailMessage addRecipient(Recipient recipient) {
     recipients.add(recipient);
     return this;
   }

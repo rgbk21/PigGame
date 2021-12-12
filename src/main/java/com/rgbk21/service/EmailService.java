@@ -2,6 +2,7 @@ package com.rgbk21.service;
 
 import com.rgbk21.model.EmailMessage;
 import com.rgbk21.model.EmailResponse;
+import com.rgbk21.model.Recipient;
 import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.Constants;
 import org.apache.commons.logging.Log;
@@ -28,10 +29,11 @@ public class EmailService {
     LOGGER.info("EmailService::sendEmail url is: " + url);
     LOGGER.info("EmailService::sendEmail recipientEmailId is: " + recipientEmailId);
 
+    Recipient recipient = new Recipient().setEmail(recipientEmailId);
     EmailMessage emailMessage = new EmailMessage()
         .setTitle("New Game Request")
         .setHtml("Game Id: " + gameId)
-        .addRecipient(recipientEmailId);
+        .addRecipient(recipient);
 
     LOGGER.info("EmailService: sendEmail emailMessage object: " + emailMessage);
 
