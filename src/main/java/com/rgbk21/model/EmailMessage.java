@@ -7,7 +7,8 @@ import com.google.common.base.MoreObjects;
 import java.util.ArrayList;
 import java.util.List;
 
-//@JsonSerialize @JsonDeserialize
+@JsonSerialize
+@JsonDeserialize
 public class EmailMessage {
   private String title;
   private String html;

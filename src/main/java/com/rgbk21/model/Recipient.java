@@ -1,8 +1,12 @@
 package com.rgbk21.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+@JsonSerialize
+@JsonDeserialize
 public class Recipient {
   private String email;
   private String name;
