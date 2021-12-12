@@ -1,6 +1,7 @@
 package com.rgbk21.service;
 
 import com.rgbk21.model.EmailMessage;
+import com.rgbk21.model.EmailResponse;
 import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.Constants;
 import org.apache.commons.logging.Log;
@@ -32,6 +33,7 @@ public class EmailService {
         .setHtml("Game Id: " + gameId)
         .addRecipient(CommonUtils.getEnvVariable(Constants.EMAIL_ID));
 
-    emailService.sendEmail(emailMessage);
+    EmailResponse emailResponse = emailService.sendEmail(emailMessage);
+    LOGGER.info("EmailService: sendEmail _id of sent email: " + emailResponse.get_id());
   }
 }

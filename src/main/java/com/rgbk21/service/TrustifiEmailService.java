@@ -3,6 +3,7 @@ package com.rgbk21.service;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.rgbk21.model.EmailMessage;
+import com.rgbk21.model.EmailResponse;
 import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.Constants;
 import org.springframework.http.HttpHeaders;
@@ -22,14 +23,16 @@ public class TrustifiEmailService {
     this.webClient = builder.baseUrl(baseUrl).build();
   }
 
-  public void sendEmail(EmailMessage emailMsgPayload) {
+  public EmailResponse sendEmail(EmailMessage emailMsgPayload) {
 
-    webClient.post()
+    return webClient.post()
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .header(Constants.TRUSTIFI_KEY, CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header(Constants.TRUSTIFI_SECRET, CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
         .body(Mono.just(emailMsgPayload), EmailMessage.class)
-        .retrieve();
+        .retrieve()
+        .bodyToMono(EmailResponse.class)
+        .block();
   }
 
 }
