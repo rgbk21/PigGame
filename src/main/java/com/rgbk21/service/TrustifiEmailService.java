@@ -27,7 +27,10 @@ public class TrustifiEmailService {
 
   public EmailResponse sendEmail(EmailMessage emailMsgPayload) {
 
-    String body = "{\"recipients\": [{\"email\": \"rajgaurav.bk@gmail.com\"}], \"title\": \"Title\", \"html\": \"Body\"}";
+    String title = emailMsgPayload.getTitle();
+    String msgBody = emailMsgPayload.getHtml();
+//    String body = "{\"recipients\": [{\"email\": \"rajgaurav.bk@gmail.com\"}], \"title\": \"Title\", \"html\": \"Body\"}";
+    String body = "{\"recipients\": [{\"email\": \"rajgaurav.bk@gmail.com\"}], \"title\": \""+ title +"\", \"html\": \""+ msgBody +"\"}";
 
     return webClient.post()
         .uri(URI_SEND_EMAIL)
@@ -35,7 +38,7 @@ public class TrustifiEmailService {
         .header("x-trustifi-key", CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header("x-trustifi-secret", CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
         .contentType(MediaType.APPLICATION_JSON)
-        .body(Mono.just(emailMsgPayload), EmailMessage.class)
+        .body(Mono.just(body), String.class)
         .retrieve()
         .bodyToMono(EmailResponse.class)
         .block();
