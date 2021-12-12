@@ -9,6 +9,7 @@ import com.rgbk21.utils.Constants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserter;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -26,13 +27,15 @@ public class TrustifiEmailService {
 
   public EmailResponse sendEmail(EmailMessage emailMsgPayload) {
 
+    String body = "{\"recipients\": [{\"email\": \"rajgaurav.bk@gmail.com\"}], \"title\": \"Title\", \"html\": \"Body\"}";
+
     return webClient.post()
         .uri(URI_SEND_EMAIL)
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
         .header("x-trustifi-key", CommonUtils.getEnvVariable(Constants.TRUSTIFI_KEY))
         .header("x-trustifi-secret", CommonUtils.getEnvVariable(Constants.TRUSTIFI_SECRET))
-        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-        .body(Mono.just(emailMsgPayload), EmailMessage.class)
+        .contentType(MediaType.APPLICATION_JSON)
+        .body(body, String.class)
         .retrieve()
         .bodyToMono(EmailResponse.class)
         .block();
