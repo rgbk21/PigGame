@@ -100,9 +100,13 @@ public class GameController {
     return ResponseEntity.ok(play);
   }
 
-  @GetMapping("/gameplay/challenge")
-  public void challengeMe(@RequestBody StartGameRequestHolder requestHolder, HttpServletResponse response) {
-    ResponseEntity<GamePlay> gamePlay = startNewGame(requestHolder, response);
-    emailService.sendEmail(gamePlay.getBody().getGameId());
+  @PostMapping("/gameplay/challenge")
+  public ResponseEntity<GamePlay> challengeMe(@RequestBody StartGameRequestHolder requestHolder, HttpServletResponse response) {
+    LOGGER.info("GameController::challengeMe starts with player:" + requestHolder.getPlayer().getUserName());
+    GamePlay play = gameService.createNewGame(requestHolder.getPlayer(), requestHolder.getTargetScore(), response);
+    LOGGER.info("GameController::challengeMe ends with Response::" + play.toString());
+    LOGGER.info("GameController::challengeMe sending email notification from controller");
+    emailService.sendEmail(play.getGameId());
+    return ResponseEntity.ok(play);
   }
 }
