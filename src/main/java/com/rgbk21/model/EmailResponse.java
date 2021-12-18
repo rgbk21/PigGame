@@ -4,44 +4,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EmailResponse {
-  private String _id;
-  private Integer recipientsCount;
-  private Integer emailsLeft;
-  private String created;
+  private String id;
+  private String message;
 
-  public String get_id() {
-    return _id;
+  public String getId() {
+    return id;
   }
 
-  public EmailResponse set_id(String _id) {
-    this._id = _id;
+  public EmailResponse setId(String id) {
+    this.id = id;
     return this;
   }
 
-  public Integer getRecipientsCount() {
-    return recipientsCount;
+  public String getMessage() {
+    return message;
   }
 
-  public EmailResponse setRecipientsCount(Integer recipientsCount) {
-    this.recipientsCount = recipientsCount;
-    return this;
-  }
-
-  public String getCreated() {
-    return created;
-  }
-
-  public EmailResponse setCreated(String created) {
-    this.created = created;
-    return this;
-  }
-
-  public Integer getEmailsLeft() {
-    return emailsLeft;
-  }
-
-  public EmailResponse setEmailsLeft(Integer emailsLeft) {
-    this.emailsLeft = emailsLeft;
+  public EmailResponse setMessage(String message) {
+    this.message = message;
     return this;
   }
 }

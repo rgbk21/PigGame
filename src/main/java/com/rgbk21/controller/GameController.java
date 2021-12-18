@@ -5,7 +5,7 @@ import com.rgbk21.exception.InvalidGameException;
 import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.service.GameService;
-import com.rgbk21.service.EmailService;
+import com.rgbk21.service.EmailServiceHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class GameController {
 
   @Autowired private GameService gameService;
   @Autowired private SimpMessagingTemplate messagingTemplate;
-  @Autowired private EmailService emailService;
+  @Autowired private EmailServiceHelper emailServiceHelper;
 
   private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
@@ -106,7 +106,7 @@ public class GameController {
     GamePlay play = gameService.createNewGame(requestHolder.getPlayer(), requestHolder.getTargetScore(), response);
     LOGGER.info("GameController::challengeMe ends with Response::" + play.toString());
     LOGGER.info("GameController::challengeMe sending email notification from controller");
-    emailService.sendEmail(play.getGameId());
+    emailServiceHelper.sendEmail(play.getGameId());
     return ResponseEntity.ok(play);
   }
 }

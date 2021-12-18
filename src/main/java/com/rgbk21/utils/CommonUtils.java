@@ -14,7 +14,7 @@ public class CommonUtils {
   }
 
   @Nullable
-  public static String getEnvVariable(String key) {
+  public static String getEnvVariableValueForKey(String key) {
     Map<String, String> env = System.getenv();
 
     for (String name : env.keySet()) {
