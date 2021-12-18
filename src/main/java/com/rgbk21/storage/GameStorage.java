@@ -21,6 +21,8 @@ public class GameStorage {
     return instance;
   }
 
+  /** Returns a map of all the games currently stored on the server. The games are stored as &lt;key, value&gt; pairs where the key is the gameId
+   * and value is a reference to the game. */
   public Map<String, Game> getAllGames() {
     return allGames;
   }

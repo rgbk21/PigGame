@@ -1,8 +1,5 @@
 package com.rgbk21.service;
 
-import com.rgbk21.exception.GameAlreadyInProgressException;
-import com.rgbk21.exception.InvalidGameException;
-import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.storage.GameStorage;
 import com.rgbk21.utils.CommonUtils;
@@ -61,16 +58,16 @@ public class GameService {
     return targetScore != null && targetScore >= 1 && targetScore <= 100;
   }
 
-  public GamePlay connectToExistingGame(Player player2, String gameId, HttpServletResponse response) {
+  public GamePlay connectToExistingGame(JoinGameRequestHolder request, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-    if (!GameStorage.getInstance().getAllGames().containsKey(gameId)) {
+    if (!GameStorage.getInstance().getAllGames().containsKey(request.getGameId())) {
       ErrorInfo errorInfo = CommonUtils.createErrorInfo("NO_SUCH_GAME", "Game with provided ID does not exist");
       GamePlay play = new GamePlay();
       play.getErrorInfoList().add(errorInfo);
       return play;
     }
 
-    Game game = GameStorage.getInstance().getAllGames().get(gameId);
+    Game game = GameStorage.getInstance().getAllGames().get(request.getGameId());
 
     if (game.getPlayer2() != null) {
       ErrorInfo errorInfo = CommonUtils.createErrorInfo("GAME_IN_PROGRESS", "Game already has two players");
@@ -79,10 +76,25 @@ public class GameService {
       return play;
     }
 
-    ResponseCookie cookie = addCookieToResponseWithName(P2_PLAYER_ID, response);
+    // Verify that the user is not trying to join a game that they themselves created as both player1 and player2.
+    Map<String, String> bothPlayerIdsMap = new HashMap<>();
+    bothPlayerIdsMap = getBothPlayerIdsFromCookies(httpServletRequest, bothPlayerIdsMap);
+    String uuidOfPlayer1StoredInApp = game.getP1Cookie().getValue();
+    String uuidOfPlayer1RxFromBrowser = bothPlayerIdsMap.get(P1_PLAYER_ID);
+    if (uuidOfPlayer1RxFromBrowser != null && uuidOfPlayer1RxFromBrowser.equals(uuidOfPlayer1StoredInApp)) {
+      ErrorInfo errorInfo = CommonUtils.createErrorInfo(
+          "USER_JOINING_HIS_OWN_GAME",
+          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window. " +
+              "Alternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.");
+      GamePlay play = new GamePlay();
+      play.getErrorInfoList().add(errorInfo);
+      return play;
+    }
+
+    ResponseCookie cookie = addCookieToResponseWithName(P2_PLAYER_ID, httpServletResponse);
     LOGGER.info("Assigned ID to Player 2: " + cookie.getValue());
 
-    game.setPlayer2(player2)
+    game.setPlayer2(request.getPlayer())
         .setP2Cookie(cookie)
         .setGameStatus(IN_PROGRESS);
 
@@ -98,7 +110,6 @@ public class GameService {
     return game.getGamePlay();
   }
 
-  // TODO: What happens when no valid games are found???
   // All open games will be returned to the user. It will be upto the user to select which game they want to play
   // Once the user has selected the required game, the connectToExistingGame should be called from the front end
   public OpenGames connectToRandomGame(Player player2) {
@@ -112,7 +123,8 @@ public class GameService {
 
     if (allOpenGames.size() == 0) {
       String errorCode = "NO_OPEN_GAMES";
-      String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it.";
+      String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it." +
+          "Alternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.";
       ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, errorMsg);
       openGames.getErrorInfoList().add(errorInfo);
     }
@@ -140,7 +152,8 @@ public class GameService {
       Map<String, String> bothPlayerIdsMap = new HashMap<>();
       bothPlayerIdsMap = getBothPlayerIdsFromCookies(request, bothPlayerIdsMap);
 
-      if (game.getGamePlay().isPl1Turn() && game.getP1Cookie().getValue().equals(bothPlayerIdsMap.get(P1_PLAYER_ID))) {
+      if (game.getGamePlay().isPl1Turn() &&
+          game.getP1Cookie().getValue().equals(bothPlayerIdsMap.get(P1_PLAYER_ID))) {
         DiceRoll roll = generateDiceRoll(game);
         game.getGamePlay().setDiceRoll(roll);
         updatePlayerScore(game, roll);
@@ -307,7 +320,7 @@ public class GameService {
         .secure(true)
         .path("/")
 //                .domain("localhost:63343")
-        .maxAge(SEVEN_DAYS)
+        .maxAge(ONE_DAY)
         .build();
 
     response.addHeader(HttpHeaders.SET_COOKIE, resCookie.toString());

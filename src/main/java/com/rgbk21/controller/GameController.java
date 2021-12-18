@@ -63,11 +63,11 @@ public class GameController {
   }
 
   @PostMapping("/connect")
-  public ResponseEntity<GamePlay> connectToExistingGame(@RequestBody JoinGameRequestHolder requestHolder, HttpServletResponse response)
+  public ResponseEntity<GamePlay> connectToExistingGame(@RequestBody JoinGameRequestHolder requestHolder,HttpServletRequest request, HttpServletResponse response)
       throws InvalidGameException, GameAlreadyInProgressException {
     LOGGER.info("GameController::connectToExistingGame starts with player:" + requestHolder.getPlayer().getUserName() +
         " :: joining game with id :: " + requestHolder.getGameId());
-    GamePlay play = gameService.connectToExistingGame(requestHolder.getPlayer(), requestHolder.getGameId(), response);
+    GamePlay play = gameService.connectToExistingGame(requestHolder, request, response);
     LOGGER.info("GameController::connectToExistingGame ends::Response::" + play.toString());
     // Once P2 connects to a game we will have to notify P1 that the game is now in progress
     messagingTemplate.convertAndSend("/topic/game-progress/" + play.getGameId(), play);
