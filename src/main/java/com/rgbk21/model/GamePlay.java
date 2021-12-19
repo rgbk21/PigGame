@@ -1,6 +1,7 @@
 package com.rgbk21.model;
 
 import com.rgbk21.utils.ErrorInfo;
+import com.rgbk21.utils.Message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,14 @@ public class GamePlay {
   private boolean pl1Turn;
   private boolean pl2Turn;
   private Player winner;
-  private List<ErrorInfo> errorInfoList;
+  private boolean p1ClickedHold;
+  private boolean p2ClickedHold;
+  private final List<ErrorInfo> errorInfoList;
+  private final List<Message> messageList;
 
   public GamePlay() {
     errorInfoList = new ArrayList<>();
+    messageList = new ArrayList<>();
   }
 
   public boolean isHold() {
@@ -157,9 +162,30 @@ public class GamePlay {
     return errorInfoList;
   }
 
-  public GamePlay setErrorInfoList(List<ErrorInfo> errorInfoList) {
-    this.errorInfoList = errorInfoList;
+  public boolean isP1ClickedHold() {
+    return p1ClickedHold;
+  }
+
+  /** Sets to true if either p1 clicked on hold and turn changed to p2, or dice rolled a 1.
+   * Used to calculate flawless victory. */
+  public GamePlay setP1ClickedHold(boolean p1ClickedHold) {
+    this.p1ClickedHold = p1ClickedHold;
     return this;
+  }
+
+  public boolean isP2ClickedHold() {
+    return p2ClickedHold;
+  }
+
+  /** Sets to true if either p2 clicked on hold and turn changed to p1, or dice rolled a 1.
+   * Used to calculate flawless victory. */
+  public GamePlay setP2ClickedHold(boolean p2ClickedHold) {
+    this.p2ClickedHold = p2ClickedHold;
+    return this;
+  }
+
+  public List<Message> getMessageList() {
+    return messageList;
   }
 
   @Override

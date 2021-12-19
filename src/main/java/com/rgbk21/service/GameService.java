@@ -4,6 +4,7 @@ import com.rgbk21.model.*;
 import com.rgbk21.storage.GameStorage;
 import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.ErrorInfo;
+import com.rgbk21.utils.Message;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpHeaders;
@@ -84,8 +85,8 @@ public class GameService {
     if (uuidOfPlayer1RxFromBrowser != null && uuidOfPlayer1RxFromBrowser.equals(uuidOfPlayer1StoredInApp)) {
       ErrorInfo errorInfo = CommonUtils.createErrorInfo(
           "USER_JOINING_HIS_OWN_GAME",
-          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window. " +
-              "Alternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.");
+          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window." +
+              "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.");
       GamePlay play = new GamePlay();
       play.getErrorInfoList().add(errorInfo);
       return play;
@@ -124,7 +125,7 @@ public class GameService {
     if (allOpenGames.size() == 0) {
       String errorCode = "NO_OPEN_GAMES";
       String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it." +
-          "Alternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.";
+          "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.";
       ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, errorMsg);
       openGames.getErrorInfoList().add(errorInfo);
     }
@@ -211,8 +212,17 @@ public class GameService {
     if (winner != null) {
       game.setGameStatus(FINISHED).setWinner(winner);
       game.getGamePlay().setGameStatus(FINISHED).setWinner(winner);
+      computeIfFlawlessVictory(game, winner);
     } else {
       switchActivePlayer(game);
+    }
+  }
+
+  /** Adds Flawless Victory message for the winner if the winner never rolled a 1 and never pressed hold during the entire game */
+  private void computeIfFlawlessVictory(Game game, Player winner) {
+    if (winner.getUserName().equals(game.getPlayer1().getUserName()) && !game.getGamePlay().isP1ClickedHold() ||
+        winner.getUserName().equals(game.getPlayer2().getUserName()) && !game.getGamePlay().isP2ClickedHold()) {
+      game.getGamePlay().getMessageList().add(new Message("Flawless Victory!"));
     }
   }
 
@@ -292,9 +302,11 @@ public class GameService {
     if (game.getGamePlay().isPl1Turn()) {
       game.getGamePlay().setPl1Turn(false);
       game.getGamePlay().setPl2Turn(true);
+      game.getGamePlay().setP1ClickedHold(true);
     } else {
       game.getGamePlay().setPl1Turn(true);
       game.getGamePlay().setPl2Turn(false);
+      game.getGamePlay().setP2ClickedHold(true);
     }
   }
 
