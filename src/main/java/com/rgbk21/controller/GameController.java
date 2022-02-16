@@ -117,6 +117,9 @@ public class GameController {
   @PostMapping("/wordle/words")
   public ResponseEntity<WordleResponse> wordle(@RequestBody WordleRequest wordleRequest, HttpServletResponse response) {
     WordleResponse possibleAnswers = wordleService.getPossibleAnswers(wordleRequest);
+    if (possibleAnswers == null) {
+      return ResponseEntity.badRequest().body(null);
+    }
     return ResponseEntity.ok(possibleAnswers);
   }
 }

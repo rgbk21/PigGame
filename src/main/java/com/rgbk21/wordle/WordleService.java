@@ -24,6 +24,8 @@ public class WordleService {
   }
 
   public WordleResponse getPossibleAnswers(WordleRequest wordleRequest) {
+    if (!isValidRequest(wordleRequest)) return null;
+
     List<String> allFiveLetterWords = wordsList.getAllFiveLetterWords();
     Set<String> validWordleWords = wordsList.getWordleWordsSet();
 
@@ -55,6 +57,26 @@ public class WordleService {
         .setWordlePossibleAnswers(wordlePossibleAnswers);
 
     return response;
+  }
+
+  private boolean isValidRequest(WordleRequest wordleRequest) {
+    // Each string should have at most one alphabet
+    Pattern singleAlphabetPattern = Pattern.compile( "^[a-z]?$", Pattern.CASE_INSENSITIVE);
+    for (int i = 0; i < wordleRequest.getLetters().size(); i++) {
+      String currLetter = wordleRequest.getLetters().get(i);
+      Matcher singleAlphabetMatcher = singleAlphabetPattern.matcher(currLetter);
+      if (!singleAlphabetMatcher.matches()) {
+        return false;
+      }
+    }
+
+    // If a string position is marked green, there should be a letter associated with the position
+    for (int i = 0; i < wordleRequest.getGreenPositions().size(); i++) {
+      if (wordleRequest.getGreenPositions().get(i) && wordleRequest.getLetters().get(i).isEmpty()) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private String createRegexPatternForOrangePositions(WordleRequest wordleRequest) {
@@ -91,5 +113,4 @@ public class WordleService {
 
     return basePattern.toString();
   }
-
 }
