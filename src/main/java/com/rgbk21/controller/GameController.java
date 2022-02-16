@@ -6,6 +6,9 @@ import com.rgbk21.exception.NoExistingGamesException;
 import com.rgbk21.model.*;
 import com.rgbk21.service.GameService;
 import com.rgbk21.service.EmailServiceHelper;
+import com.rgbk21.wordle.WordleRequest;
+import com.rgbk21.wordle.WordleResponse;
+import com.rgbk21.wordle.WordleService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ public class GameController {
   @Autowired private GameService gameService;
   @Autowired private SimpMessagingTemplate messagingTemplate;
   @Autowired private EmailServiceHelper emailServiceHelper;
+  @Autowired private WordleService wordleService;
 
   private static final Log LOGGER = LogFactory.getLog(GameController.class);
 
@@ -108,5 +112,11 @@ public class GameController {
     LOGGER.info("GameController::challengeMe sending email notification from controller");
     emailServiceHelper.sendEmail(play.getGameId());
     return ResponseEntity.ok(play);
+  }
+
+  @PostMapping("/wordle/words")
+  public ResponseEntity<WordleResponse> wordle(@RequestBody WordleRequest wordleRequest, HttpServletResponse response) {
+    WordleResponse possibleAnswers = wordleService.getPossibleAnswers(wordleRequest);
+    return ResponseEntity.ok(possibleAnswers);
   }
 }
