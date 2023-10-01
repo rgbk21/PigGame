@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin(
-    origins = {"https://rgbk21.github.io", "http://localhost:63343"},
+    origins = {"https://rgbk21.github.io", "http://localhost:63342"},
     allowedHeaders = "*",
     allowCredentials = "true",
     methods = {RequestMethod.POST, RequestMethod.GET}
