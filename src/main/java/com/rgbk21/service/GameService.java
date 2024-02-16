@@ -83,10 +83,13 @@ public class GameService {
     String uuidOfPlayer1StoredInApp = game.getP1Cookie().getValue();
     String uuidOfPlayer1RxFromBrowser = bothPlayerIdsMap.get(P1_PLAYER_ID);
     if (uuidOfPlayer1RxFromBrowser != null && uuidOfPlayer1RxFromBrowser.equals(uuidOfPlayer1StoredInApp)) {
+//      ErrorInfo errorInfo = CommonUtils.createErrorInfo(
+//          "USER_JOINING_HIS_OWN_GAME",
+//          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window." +
+//              "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.");
       ErrorInfo errorInfo = CommonUtils.createErrorInfo(
           "USER_JOINING_HIS_OWN_GAME",
-          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window." +
-              "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.");
+          "You cannot join a game as both player1 and player2! Please have someone join this game from another browser window.");
       GamePlay play = new GamePlay();
       play.getErrorInfoList().add(errorInfo);
       return play;
@@ -124,8 +127,9 @@ public class GameService {
 
     if (allOpenGames.size() == 0) {
       String errorCode = "NO_OPEN_GAMES";
-      String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it." +
-          "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.";
+//      String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it." +
+//          "\nAlternatively, you can challenge me to a game by clicking the \"Challenge Me\" button.";
+      String errorMsg = "There are no open games right now. You can try creating a new game and have a second player join it.";
       ErrorInfo errorInfo = CommonUtils.createErrorInfo(errorCode, errorMsg);
       openGames.getErrorInfoList().add(errorInfo);
     }
