@@ -26,4 +26,7 @@ public class WordsService {
     return wordRepository.findAll(PageRequest.of(offset, pageSize));
   }
 
+  public Iterable<Word> findWordsThatStartWith(String alphabet) {
+    return wordRepository.findByWordStartingWith(alphabet);
+  }
 }

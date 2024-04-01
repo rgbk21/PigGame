@@ -58,4 +58,19 @@ public class WordsController {
       return ResponseEntity.ok(allWords);
     }
   }
+
+  @RequestMapping(value="alphabet", method = RequestMethod.GET)
+  public ResponseEntity<Iterable<Word>> getAllWordsStartingWithAlphabet(@RequestParam Map<String, String> queryParameters) {
+    String queryAlphabet = queryParameters.getOrDefault("alphabet", "");
+    System.out.println("alphabet: " + queryAlphabet);
+    Iterable<Word> allWords = null;
+    if (!Objects.equals(queryAlphabet, "")) {
+      allWords = wordsService.findWordsThatStartWith(queryAlphabet);
+    }
+    if (allWords == null) {
+      return ResponseEntity.notFound().build();
+    } else {
+      return ResponseEntity.ok(allWords);
+    }
+  }
 }
