@@ -9,6 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Objects;
 
+@CrossOrigin(
+    origins = {"https://rgbk21.github.io", "http://localhost:63342"},
+    allowedHeaders = "*",
+    allowCredentials = "true",
+    methods = {RequestMethod.GET}
+)
 @RestController
 @RequestMapping("/words")
 public class WordsController {
