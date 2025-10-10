@@ -73,6 +73,7 @@ public class WordsController {
     if (!Objects.equals(queryAlphabet, "")) {
       allWords = wordsService.findWordsThatStartWith(queryAlphabet);
     }
+    System.out.println(allWords);
     if (allWords == null) {
       return ResponseEntity.notFound().build();
     } else {
