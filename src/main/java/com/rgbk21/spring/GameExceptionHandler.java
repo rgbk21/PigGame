@@ -4,7 +4,7 @@ import com.rgbk21.utils.CommonUtils;
 import com.rgbk21.utils.ErrorInfo;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +21,7 @@ public class GameExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @Override
-  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
     // HttpStatus status = HttpStatus.BAD_REQUEST; // 400 Bad Request.
     return handleExceptionInternal(ex, createExceptionBodyMsg(ex), headers, status, request);
   }
