@@ -1,46 +1,51 @@
 package com.rgbk21.words.utils;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.flogger.FluentLogger;
+import com.rgbk21.words.dto.WordEntry;
+import com.rgbk21.words.model.PartOfSpeech;
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Component
 public class WordsUtils {
-  public static void main(String[] args) throws IOException, URISyntaxException {
-    // The path inside getResources is relative to the "resources" folder
-    final String resourcePath = "wordList/Meanings_Cleaned.txt";
+  private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
 
-    URL resourceUrl = WordsUtils.class.getClassLoader().getResource(resourcePath);
+  public static List<WordEntry> fetchWordEntriesFromFile(String relativeFilePath) throws IOException, URISyntaxException {
+    LOGGER.atInfo().log("Starting opening file to read and populate words.");
+    // Path of file to pass into the method: wordList/Meanings_Cleaned.txt
+    URL resourceUrl = WordsUtils.class.getClassLoader().getResource(relativeFilePath);
     if (resourceUrl == null) {
-      throw new IOException("Cannot find Resource: " + resourcePath);
+      throw new IOException("Cannot find Resource: " + relativeFilePath);
     }
 
-    // Convert the resource KURL to a Path to be used by the parseFile method.
-    List<WordEntry> wordEntries = WordsUtils.parseFile(Path.of(resourceUrl.toURI()));
-    System.out.println(wordEntries);
+    return WordsUtils.parseFile(Path.of(resourceUrl.toURI()));
   }
 
-  public static List<WordEntry> parseFile(Path filePath) throws IOException {
+  private static List<WordEntry> parseFile(Path filePath) throws IOException {
     try (Stream<String> lines = Files.lines(filePath)) {
-      List<WordEntry> wordEntries = new ArrayList<>();
+      ImmutableList.Builder<WordEntry> wordEntryBuilder = new ImmutableList.Builder<>();
       for (String line : (Iterable<String>) lines::iterator) {
         try {
           WordEntry entry = parseLine(line);
           if (entry != null) {
-            wordEntries.add(entry);
+            wordEntryBuilder.add(entry);
           }
         } catch (Exception e) {
           throw new RuntimeException("Failed to parse line: \"" + line + "\"", e);
         }
       }
-      return wordEntries;
+      return wordEntryBuilder.build();
     }
   }
 
@@ -75,22 +80,3 @@ public class WordsUtils {
   }
 }
 
-record WordEntry(String word, String meaning, EnumSet<PartOfSpeech> partOfSpeech) {}
-
-enum PartOfSpeech {
-  UNDEFINED, NOUN, VERB, ADVERB, ADJECTIVE, PREPOSITION;
-
-  public static PartOfSpeech fromString(String text) {
-    if (text == null || text.trim().isEmpty()) {
-      return UNDEFINED;
-    }
-
-    // Handle common aliases from the text file
-    return switch (text) {
-      case "ADJ" -> ADJECTIVE;
-      case "ADV" -> ADVERB;
-      case "N" -> NOUN;
-      default -> PartOfSpeech.valueOf(text.toUpperCase());
-    };
-  }
-}

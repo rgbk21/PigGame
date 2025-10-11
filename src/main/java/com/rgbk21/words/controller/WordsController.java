@@ -1,8 +1,11 @@
 package com.rgbk21.words.controller;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.flogger.FluentLogger;
 import com.rgbk21.words.model.Word;
 import com.rgbk21.words.service.WordsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +21,8 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/words")
 public class WordsController {
+  private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
+
   private final WordsService wordsService;
 
   public WordsController(WordsService wordsService) {
@@ -44,7 +49,7 @@ public class WordsController {
     }
   }
 
-  @RequestMapping(value="page", method = RequestMethod.GET)
+  @RequestMapping(value = "page", method = RequestMethod.GET)
   public ResponseEntity<Iterable<Word>> getAllWordsByPage(@RequestParam Map<String, String> queryParameters) {
     String offsetStr = queryParameters.getOrDefault("offset", "");
     String pageSizeStr = queryParameters.getOrDefault("pageSize", "");
@@ -65,7 +70,7 @@ public class WordsController {
     }
   }
 
-  @RequestMapping(value="alphabet", method = RequestMethod.GET)
+  @RequestMapping(value = "alphabet", method = RequestMethod.GET)
   public ResponseEntity<Iterable<Word>> getAllWordsStartingWithAlphabet(@RequestParam Map<String, String> queryParameters) {
     String queryAlphabet = queryParameters.getOrDefault("alphabet", "");
     System.out.println("alphabet: " + queryAlphabet);
@@ -78,6 +83,19 @@ public class WordsController {
       return ResponseEntity.notFound().build();
     } else {
       return ResponseEntity.ok(allWords);
+    }
+  }
+
+  @PostMapping("/populateDB")
+  public ResponseEntity<Map<String, String>> populateDatabase() {
+    LOGGER.atInfo().log("Received request for populating DB");
+
+    try {
+      long count = wordsService.populateDatabaseFromFile();
+      return ResponseEntity.ok(ImmutableMap.of("message", "Successfully populated database", "wordsAdded", Long.toString(count)));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .body(ImmutableMap.of("message", "Failed to populate database", "error", e.getMessage()));
     }
   }
 }

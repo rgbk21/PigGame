@@ -73,6 +73,18 @@
 			<artifactId>spring-boot-starter-jdbc</artifactId>
             <!-- Not mentioning the version inherits it from parent. -->
 		</dependency>
+        <!-- Flogger API -->
+        <dependency>
+            <groupId>com.google.flogger</groupId>
+            <artifactId>flogger</artifactId>
+            <version>0.8</version>
+        </dependency>
+        <!-- Flogger backend that connects to SLF4J -->
+        <dependency>
+            <groupId>com.google.flogger</groupId>
+            <artifactId>flogger-slf4j-backend</artifactId>
+            <version>0.8</version>
+        </dependency>
 	</dependencies>
 
 	<build>
