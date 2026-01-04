@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import java.util.EnumSet;
 
 @Entity()
-@Table(name = "words_table")
+@Table(name = "words")
 public class Word {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long wordId;
+  private Long id;
 
   @Column(nullable = false, unique = true)
   private String word;
@@ -31,8 +31,8 @@ public class Word {
     this.partOfSpeech = partOfSpeech;
   }
 
-  public Long getWordId() {
-    return wordId;
+  public Long getId() {
+    return id;
   }
 
   public String getWord() {
