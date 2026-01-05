@@ -89,7 +89,7 @@ public class WordsController {
     }
   }
 
-  @PostMapping("/populateDB")
+  // @PostMapping("/populateDB")
   public ResponseEntity<Map<String, String>> populateDatabase() {
     LOGGER.atInfo().log("Received request for populating DB");
 

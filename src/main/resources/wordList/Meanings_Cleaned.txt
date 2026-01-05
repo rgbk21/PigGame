@@ -46,8 +46,7 @@ acclaim applaud; praise; greet with great approval; announce with great approval
 acclimate adjust to climate or environment; adapt VERB  
 acclivity sharp upslope of a hill; OP. declivity NOUN  
 accolade award of merit; strong praise and approval NOUN  
-merit good quality deserving praise; merits: aspect of character or behavior deserving approval or disapproval; Ex. judge each plan on its own merits; V: deserve; earn NOUN/VERB  
-demerit fault; bad quality NOUN  
+demerit fault; bad quality NOUN
 accommodate oblige or help someone; adjust or bring into harmony; adapt; make enough space for; ADJ. accommodative; CF. accommodating: helpful and obliging VERB/ADJ.  
 accomplice partner in crime NOUN  
 accord agreement NOUN  
@@ -327,8 +326,7 @@ arrogance overbearing pride or self-importance NOUN
 arrogant having or revealing an exaggerated sense of one’s own importance ADJECTIVE  
 arroyo a steep-sided gully formed by fast-flowing rainwater NOUN  
 artery a blood vessel that carries blood away from the heart NOUN  
-articulate able to express ideas clearly and effectively in speech or writing ADJECTIVE  
-articulate to express clearly or pronounce distinctly VERB  
+articulate able to express ideas clearly and effectively in speech or writing ADJECTIVE/VERB
 arsenal a collection or storage place for weapons or military equipment NOUN  
 artifact an object made by a human being, typically of historical or cultural interest NOUN  
 artifice clever or cunning device or trick used to deceive others NOUN  
@@ -373,8 +371,7 @@ astral relating to the stars ADJECTIVE
 astringent causing contraction; harsh or severe; binding ADJECTIVE  
 astronomical extremely large or extensive ADJECTIVE  
 astute having sharp judgment; keen; perceptive ADJECTIVE  
-asunder into parts or pieces; apart ADVERB  
-sunder to separate into parts VERB  
+asunder into parts or pieces; apart ADVERB
 asylum a place offering protection, refuge, or shelter NOUN  
 asymmetric not identical on both sides; uneven ADJECTIVE  
 atavism resemblance to remote ancestors rather than parents; a throwback NOUN  
@@ -752,8 +749,7 @@ cauterize to burn a wound or lesion to prevent infection VERB
 cavalcade procession of riders or horse-drawn carriages NOUN  
 cavalier casual, offhand, or arrogant ADJECTIVE/NOUN  
 cavil to quibble or raise frivolous objections VERB/NOUN  
-cede to yield or surrender (title, territory) VERB  
-cession act of yielding or surrendering NOUN  
+cede to yield or surrender (title, territory) VERB
 celerity speed; rapidity NOUN  
 celestial heavenly ADJECTIVE  
 hereafter life after death NOUN  
@@ -1355,8 +1351,7 @@ descry catch sight of (something distant) VERB
 desecrate profane; violate the sanctity of VERB  
 violate break a law; defile; desecrate; assault sexually; Ex. violate graves VERB  
 desiccate dry up VERB  
-desolate (of a place) deserted; unpopulated; (of a person) lonely; forlorn; joyless ADJECTIVE  
-desolate make desolate; forsake; abandon and desert VERB  
+desolate make desolate; forsake; abandon and desert; (of a place) deserted; unpopulated; (of a person) lonely; forlorn; joyless VERB/ADJECTIVE
 desperado reckless, desperate outlaw NOUN  
 desperate having lost all hope; despairing; reckless and violent because of loss of hope or despair; undertaken as a last resort ADJECTIVE  
 despise look on with scorn; regard as worthless or distasteful; ADJ. despicable VERB/ADJECTIVE  
@@ -1574,8 +1569,7 @@ drip fall or let fall in drops; shed drops; N: action or sound of falling in dro
 trickle flow in drops or in a thin stream; N. VERB/NOUN  
 droll queer and amusing ADJECTIVE  
 queer strange; eccentric; deviating from the normal ADJECTIVE  
-drone idle person who lives on other peoples’ work; male bee NOUN  
-drone talk dully; buzz or murmur like a bee; N. VERB/NOUN  
+drone talk dully; buzz or murmur like a bee; idle person who lives on other peoples’ work; male bee VERB/NOUN
 murmur low, indistinct, continuous sound; V. CF. mumble NOUN/VERB  
 dross waste matter; worthless impurities NOUN  
 drudgery hard unpleasant work; menial work NOUN  
@@ -1886,8 +1880,7 @@ swear-word word considered offensive; Ex. bloody NOUN
 oath solemn promise; blasphemous use of sacred words to express strong feelings; swear-word; Ex. For Christ’s sake NOUN
 explicate explain in detail; interpret; clarify; CF. explicable VERB
 explicit totally clear; definite; outspoken ADJECTIVE
-exploit brave and successful act; deed or action, particularly a brave deed; CF. crossing the Atlantic ocean NOUN
-exploit make use of, sometimes unjustly; N. exploitation VERB/NOUN
+exploit make use of, sometimes unjustly; N. exploitation; brave and successful act; deed or action, particularly a brave deed; CF. crossing the Atlantic ocean VERB/NOUN
 expository explanatory; serving to explain; N. exposition: explaining; exhibition ADJECTIVE/NOUN
 expostulation protest; remonstrance; reasoning with someone to correct or dissuade; V. expostulate NOUN/VERB
 exposure risk, particularly of being exposed to disease or to the elements; unmasking; act of laying something open; Ex. exposure of governmental corruption NOUN
@@ -1968,8 +1961,7 @@ shift change position or place; exchange (one thing) for another; change in dire
 felicitous (of a word or remark) apt; suitably expressed; well chosen ADJECTIVE
 felicity happiness; appropriateness (of a remark, choice, etc.); quality of being felicitous NOUN
 feline of a member of the cat family; N. NOUN/ADJECTIVE
-fell cruel; (of a disease) deadly ADJECTIVE
-fell cut or knock down (a tree or a person); bring down (with a missile) VERB
+fell cut or knock down (a tree or a person); bring down (with a missile); cruel; (of a disease) deadly VERB/ADJECTIVE
 felon person convicted of a grave crime; CF. felony: serious crime NOUN
 feral (of an animal) not domestic; wild ADJECTIVE
 ferment agitation; commotion (noisy and excited activity); unrest (of a political kind); V. produce by fermentation; undergo fermentation; cause (a state of trouble) NOUN/VERB
@@ -2076,8 +2068,7 @@ stammer speak with involuntarily pauses or repetitions VERB
 flux flowing; series of changes; fluctuation; Ex. in a state of flux NOUN/ADJECTIVE
 fodder coarse food for cattle, horses, etc.; feed for livestock; CF. food NOUN
 foible small weakness of character; slight fault; CF. feeble NOUN
-foil contrast; one that by contrast enhances the distinctive characteristics of another NOUN
-foil defeat; frustrate; prevent from being successful; thwart; CF. fail VERB
+foil defeat; frustrate; prevent from being successful; thwart; contrast; one that by contrast enhances the distinctive characteristics of another; CF. fail VERB/NOUN
 foist insert improperly; impose upon another by coercion; palm off; pass off as genuine or worthy; CF. fist VERB
 palm conceal in the palm of the hand; palm off: pass off; Ex. palm off some bad oranges onto the lady/the painting as a real Renoir VERB
 pass off present falsely; represent falsely to be VERB
@@ -2097,7 +2088,6 @@ prefigure be a sign of; foreshadow VERB
 forerunner predecessor; one that comes before and indicates the approach of another NOUN
 foresight ability to foresee future happenings; prudence in providing for the future NOUN
 forestall prevent by taking action in advance VERB
-nuptial of marriage or the wedding ceremony; N; nuptials; wedding ceremony NOUN
 forfeit something surrendered as punishment for a crime or breach of contract; V: lose as a forfeit; N. forfeiture NOUN/VERB
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2118,8 +2108,7 @@ forthcoming happening in the near future; ready; willing to help; Ex. No answer 
 fortitude bravery; courage; strength of mind NOUN
 fortuitous accidental; by chance; N. fortuity ADJECTIVE/NOUN
 foster rear; bring up (for a certain period only); encourage; promote the development of (feelings or ideas); Ex. help foster friendly relations; ADJ: giving parental care although not related by blood; Ex. foster parents VERB/ADJECTIVE
-founder fail completely; sink; CF. flounder VERB
-founder person who establishes (an organization or business) NOUN
+founder person who establishes (an organization or business); fail completely; sink; CF. flounder NOUN/VERB
 fracas brawl (noisy quarrel or fight) in which a number of people take part; melee NOUN
 fractious unruly; peevish; cranky; bad-tempered; Ex. fractious horse ADJECTIVE
 frail weak; N. frailty ADJECTIVE/NOUN
@@ -2178,8 +2167,7 @@ gainsay deny VERB
 gait manner of walking or running; speed NOUN
 galaxy large isolated system of stars, such as the Milky Way; collection of brilliant personalities NOUN
 gale windstorm; gust of wind; emotional outburst (laughter, tears); Ex. gale of laughter NOUN
-gall bitterness of feeling; nerve; effrontery; CF. gall bladder NOUN
-gall annoy; exasperate; chafe; N: skin sore caused by rubbing (as on the skin of a horse); exasperation VERB/NOUN
+gall annoy; exasperate; chafe; N: skin sore caused by rubbing (as on the skin of a horse); exasperation; bitterness of feeling; nerve; effrontery; VERB/NOUN
 galleon large three-masted sailing ship NOUN
 galley low ship with sails (rowed along by slaves) NOUN
 clipper sailing vessel built for great speed NOUN
@@ -2268,8 +2256,7 @@ glimmer shine erratically; twinkle; N: dim or unsteady light; faint indication; 
 glitter shine brightly with flashing points of light; Ex. glittering diamond ring; N: sparkling light; attractiveness; glamor; Ex. glitter of the sun on the waves VERB/NOUN
 glamor compelling charm; ADJ. glamorous NOUN/ADJECTIVE
 gloat express evil satisfaction; look at or think about with evil satisfaction; view malevolently; Ex. The thief gloated over the stolen jewels. VERB
-gloss over explain away with the intention of deceiving or hiding faults VERB
-gloss brief explanation note or translation of a difficult expression; V. VERB/NOUN
+gloss brief explanation note or translation of a difficult expression; over explain away with the intention of deceiving or hiding faults VERB/NOUN
 glossary brief explanation of words used in the text NOUN
 glossy smooth and shining; N. gloss: shiny brightness on a surface; superficially attractive appearance; Ex. gloss of good manners ADJECTIVE/NOUN
 mat not shiny; matte; having a dull finish; N: flat piece of material used as a floor covering; V. NOUN/VERB
@@ -2284,8 +2271,7 @@ gnarled twisted ADJECTIVE
 gnarl protruding knot on a tree; V. NOUN/VERB
 gnome dwarf; underground spirit who guards treasure hoards NOUN
 goad urge on; drive with a goad; cause (someone) to do something by continued annoyance; Ex. They goaded him into doing it by saying he was a coward; N: sharp-pointed stick for driving cattle; stimulus; CF. annoy continually VERB/NOUN
-gorge narrow canyon; steep rocky cleft; ravine (made by a stream which runs through it) NOUN
-gorge stuff oneself (with food); glut; CF. gorgeous: dazzlingly beautiful VERB
+gorge stuff oneself (with food); glut; CF. gorgeous: dazzlingly beautiful; narrow canyon; steep rocky cleft; ravine (made by a stream which runs through it) VERB/NOUN
 gory bloody; N. gore: blood (from a wound) ADJECTIVE/NOUN
 shudder shake uncontrollably; tremble; V. VERB
 gossamer sheer; very light; like cobwebs; N: soft and sheer fabric; cobweb ADJECTIVE/NOUN
@@ -2295,8 +2281,7 @@ sheer pure; thin and transparent; very steep ADJECTIVE
 35
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-gouge tear out; cut out (as if with a gouge); Ex. gouge his eyes out; N: chisel for cutting out hollow areas in wood VERB/NOUN
-gouge overcharge (with high price); extort from; Ex. gouge the public; CF. usury VERB
+gouge tear out; cut out (as if with a gouge); Ex. gouge his eyes out; N: chisel for cutting out hollow areas in wood; overcharge (with high price); extort from; Ex. gouge the public; VERB/NOUN
 gourmand epicure; person who takes excessive pleasure in food and drink NOUN
 gourmet connoisseur of food and drink; epicure NOUN
 graduated arranged by degrees (of height, difficulty, etc.) ADJECTIVE
@@ -2413,8 +2398,7 @@ gross total; fragrant; clearly wrong; (of people's behavior) coarse; corpulent; 
 helm steering wheel of a ship; position of control NOUN
 herbivorous grain-eating; CF. herbivore ADJECTIVE
 heresy opinion contrary to popular belief; opinion contrary to accepted religion; ADJ. heretical; CF. heretic NOUN/ADJECTIVE
-hermetic sealed by fusion so as to be airtight; airtight ADJECTIVE
-hermetic concerning alchemy or magic; obscure and mysterious; occult ADJECTIVE
+hermetic sealed by fusion so as to be airtight; airtight; concerning alchemy or magic; obscure and mysterious; occult ADJECTIVE
 sterile incapable of producing young; free from microorganism; V. sterilize ADJECTIVE/VERB
 hermitage home of a hermit NOUN
 herpetologist one who studies reptiles; CF. herpetology: branch of zoology that deals with reptiles and amphibians NOUN
@@ -2472,8 +2456,7 @@ shed small roofed structure for storage and shelter; V: pour forth; lose by natu
 hover hang about; (of birds or aircraft) stay in the air in one place; (of people) wait nearby; stay around one place; waver; be in an uncertain state VERB
 hubbub confused uproar; loud noise; din NOUN
 hubris arrogance; excessive self-conceit NOUN
-hue color; aspect; Ex. opinions of every hue NOUN
-hue and cry outcry; loud cry or clamor; strong protest; Ex. hue and cry against the new rule NOUN
+hue and cry outcry; loud cry or clamor; strong protest; Ex. hue and cry against the new rule; color; aspect; Ex. opinions of every hue NOUN
 humane marked by kindness or consideration; kind and compassionate; humanitarian ADJECTIVE
 humanitarian one devoted to the promotion of human welfare; CF. humanism NOUN
 humdrum dull; monotonous ADJECTIVE
@@ -2492,7 +2475,6 @@ husband use sparingly; conserve; save; Ex. husband one's energy; CF. householder
 husbandry frugality; thrift; economy; agriculture; farming; Ex. animal husbandry; CF. husbandman NOUN
 hybrid mongrel; mixed breed; V. hybridize NOUN/VERB
 mongrel plant or animal (esp. a dog) of mixed breed; ADJ. NOUN/ADJECTIVE
-pedigree line of ancestors; ancestry; lineage; ADJ. (of an animal) descended from a chosen family; Ex. pedigree dog; CF. crane's foot NOUN/ADJECTIVE
 hydrophobia fear of water; rabies NOUN
 rabies disease passed on by the bite of an infected animal (causing madness and death) NOUN
 hygiene science and practice of the promotion and preservation of health; ADJ. hygienic: showing careful attention to cleanness (to prevent disease); Ex. hygienic condition NOUN/ADJECTIVE
@@ -2751,7 +2733,6 @@ ingratiate become popular with; bring (oneself) in favor of another; Ex. ingrati
 inherent firmly established by nature or habit; intrinsic ADJECTIVE
 inhibit restrain; prohibit; retard or prevent; N. inhibition VERB/NOUN
 inhibited (of a person) unable to express what one really feels ADJECTIVE
-uninhibited having no inhibitions; free in behavior and feelings ADJECTIVE
 inimical (of someone) unfriendly; hostile; (of something) harmful; detrimental; CF. enemy ADJECTIVE
 inimitable matchless; not able to be imitated ADJECTIVE
 iniquitous wicked; immoral; unrighteous; N. iniquity; Ex. den of iniquity ADJECTIVE/NOUN
@@ -3645,7 +3626,7 @@ bookish fond of books and reading ADJECTIVE
 studious given to diligent study ADJECTIVE
 pedestrian ordinary; dull; unimaginative (lacking in imagination); going on foot; Ex. pedestrian prose; N. NOUN/ADJECTIVE
 precinct division of a city for election or police purposes; precincts: space that surrounds a building; Ex. precincts of the college NOUN
-pedigree ancestry; lineage NOUN
+pedigree line of ancestors; ancestry; lineage; ADJ. (of an animal) descended from a chosen family; Ex. pedigree dog; CF. crane's foot NOUN/ADJECTIVE
 pediatrician physician specializing in children’s diseases; N. pediatrics NOUN
 peerless having no equal; incomparable ADJECTIVE
 peer one who has equal standing with another; nobleman; V: look intently; N. peerage; CF. peeress NOUN/VERB
@@ -3850,8 +3831,7 @@ prattle talk idly; babble; N. CF. prate VERB/NOUN
 idle not working; not employed or busy; lazy; without purpose; useless; lacking substance; baseless; not based on truth; Ex. idle worker; Ex. talk idly; V. ADJECTIVE/VERB
 preamble introductory statement NOUN
 precarious unsafe; lacking in stability; uncertain; risky; Ex. precarious living ADJECTIVE
-precedent something preceding in time which may be used as an authority or guide for future action; V: precede; CF. unprecedented NOUN/VERB
-precedent preceding (in time, rank, etc.) ADJECTIVE
+precedent something preceding in time which may be used as an authority or guide for future action; V: precede; CF. unprecedented; preceding (in time, rank, etc.) NOUN/VERB/ADJECTIVE
 precept practical rule guiding conduct; Ex. mother’s precept NOUN
 precipice cliff; dangerous position; Ex. on the edge of the precipice NOUN
 brink edge (at the top of a cliff); Ex. on the brink of the Grand Canyon NOUN
@@ -4059,8 +4039,7 @@ qualified limited; restricted; V. qualify: limit the meaning of; modify ADJECTIV
 qualms uneasy feelings; misgivings; uneasy fears especially about matters of conscience; Ex. I have no qualms about giving this assignment to Helen NOUN
 quandary dilemma; state of uncertainty; Ex. She is in a quandary about whether to go NOUN
 quarantine isolation of a person, place, or ship to prevent spread of infection; V: isolate in quarantine NOUN/VERB
-quarry person or animal of pursuit; victim; object of a hunt; prey NOUN
-quarry dig into (to get stone); N: mine; bank heap; piled-up mass; embankment; lateral tilting (as of an aircraft in turning); V: pile up; protect with a bank; tilt in turning VERB/NOUN
+quarry person or animal of pursuit; victim; object of a hunt; prey; dig into (to get stone); N: mine; bank heap; piled-up mass; embankment; lateral tilting (as of an aircraft in turning); V: pile up; protect with a bank; tilt in turning VERB/NOUN
 quash crush; suppress; squash; subdue; annul; Ex. quash a rebellion/the decision of the low court VERB
 squash crush; quash; suppress VERB/NOUN
 quay dock; wharf; pier; landing place (for boats) NOUN
@@ -4085,8 +4064,7 @@ quip taunt; clever sarcastic remark; V. VERB/NOUN
 taunt deride or provoke; challenge in derision; N. VERB/NOUN
 quirk sudden sharp turn or twist; startling twist; caprice; idiosyncrasy; peculiarity of behavior; Ex. by a quirk of fate NOUN
 quisling traitor who aids invaders; CF. Vidkun Quisling NOUN
-quiver case for arrows NOUN
-quiver tremble; shake; N. VERB/NOUN
+quiver tremble; shake; case for arrows VERB/NOUN
 leash restraining rope fastened to the collar of an animal (to control it); Ex. a dog on a leash NOUN
 quixotic idealistic but impractical; CF. Don Quixote ADJECTIVE
 quizzical curious; suggesting puzzlement (without saying); questioning; teasing; mocking; bantering; Ex. quizzical glance ADJECTIVE
@@ -4302,7 +4280,6 @@ resign give up (a position, right, or claim); submit (oneself) passively VERB
 resilient elastic; having the power of springing back; able to recover quickly (as from misfortune) ADJECTIVE
 elastic able to spring back into shape; quick to recover (as from disappointment); able to adapt to change; Ex. elastic plans; N: elastic material ADJECTIVE/NOUN
 resolution determination; resoluteness; ADJ. resolute: firm or determined in purpose NOUN/ADJECTIVE
-resolve determination; resolution; firmness of purpose NOUN
 resolve decide; settle; solve; separate; make a determined decision; N. resolution VERB/NOUN
 resonant (of a sound) echoing; resounding (sounding loudly); deep and full in sound; producing resonance; Ex. resonant voice; N. resonance ADJECTIVE/NOUN
 resound (of a place) be filled with sound; (of a sound) sound loudly; sound back; echo; Ex. hall resounded with laughter VERB
@@ -4355,8 +4332,7 @@ riddle pierce with holes; permeate or spread throughout; Ex. The gunman riddled 
 rider amendment or clause added to a legislative bill NOUN
 rife (of something bad) widespread; abundant; current ADJECTIVE
 rift narrow opening in a large mass; break in a friendly relation; Ex. through a rift in the clouds; OP. reconciliation NOUN
-rig fix or manipulate; manipulate dishonestly for personal gain; Ex. rig the election VERB
-rig arrangement of masts and sails; V: equip (a ship) with rigging; ADJ. rigging: ropes that hold up a ship's sails NOUN/VERB/ADJECTIVE
+rig arrangement of masts and sails; V: equip (a ship) with rigging; ADJ. rigging: ropes that hold up a ship's sails; fix or manipulate; manipulate dishonestly for personal gain; Ex. rig the election NOUN/VERB/ADJECTIVE
 rigid hard and unbending; stiff and unyielding; fixed in behavior or views; strict; rigorous; Ex. rigid rule ADJECTIVE
 rigor severity; Ex. rigors of the Russian winter NOUN
 rile irritate; vex; muddy VERB
@@ -4620,8 +4596,7 @@ soliloquy talking to oneself (esp. in a play); CF. monologue: soliloquy; long sp
 solitude state of being alone; seclusion; ADJ. solitary: existing or living alone (esp. by choice); remote or secluded; single; sole; Ex. solitary life/inn; Ex. no solitary piece of proof NOUN/ADJECTIVE  
 solstice point or time at which the sun is farthest from the equator NOUN  
 soluble able to be dissolved in a liquid; able to be worked out or solved ADJECTIVE  
-solvent able to pay all debts; N. solvency ADJECTIVE/NOUN  
-solvent substance that dissolves another; ADJ: capable of dissolving another substance NOUN/ADJECTIVE  
+solvent substance that dissolves another; ADJ: capable of dissolving another substance; able to pay all debts; N. solvency NOUN/ADJECTIVE
 somatic pertaining to the body; bodily; physical ADJECTIVE  
 somber dark; gloomy; melancholy; depressing; CF. shadow ADJECTIVE  
 somnambulist sleepwalker; V. somnambulate; N. somnambulism NOUN/VERB  
@@ -4683,9 +4658,8 @@ steadfast steadily loyal; unswerving; steady ADJECTIVE
 stealth action of moving secretly or unseen; slyness; sneakiness; secretiveness; ADJ. stealthy NOUN/ADJECTIVE  
 steep soak; saturate; Ex. steep the fabric in the dye bath; ADJ: precipitous VERB/ADJECTIVE  
 stellar pertaining to the stars; of a star performer; outstanding; Ex. stellar attraction of the entire performance ADJECTIVE  
-stem stop or check (the flow of); Ex. stem the bleeding from the slashed artery; N: main axis of a plant; stalk VERB/NOUN  
-stem from arise from; originate from VERB  
-stentorian (of the voice) extremely loud; CF. Stentor: a loud herald in the Iliad ADJECTIVE  
+stem stop or check (the flow of); Ex. stem the bleeding from the slashed artery; N: main axis of a plant; stalk; from arise from; originate from VERB/NOUN
+stentorian (of the voice) extremely loud; CF. Stentor: a loud herald in the Iliad ADJECTIVE
 stereotype one regarded as embodying a set image or type; fixed and unvarying representation; standardized mental picture often reflecting prejudice; Ex. stereotype of the happy slave; V: make a stereotype of; represent by a stereotype; Ex. It is wrong to stereotype people; Ex. stereotyped answer NOUN/VERB  
 stickler perfectionist; person who insists things be exactly right NOUN  
 stifle suppress; extinguish; inhibit; smother or suffocate VERB  
@@ -4693,9 +4667,8 @@ smother kill from lack of air; suppress; cover thickly; Ex. smothered in little 
 suffocate die or kill from lack of air; suppress VERB  
 stigma token of disgrace; brand; V. stigmatize: mark with a stigma; characterize as disgraceful NOUN/VERB  
 stilted bombastic; stiffly pompous; Ex. stilted rhetoric; CF. stiff: formal ADJECTIVE  
-stint set limits in amount or number; be thrifty; ADJ. stinting, unstinting; CF. stint: savings; NOUN/VERB/ADJECTIVE  
-stint supply; allotted amount of work; assigned portion of work; limitation; Ex. two-year stint in the army; Ex. without stint NOUN/VERB  
-stipend pay for services NOUN  
+stint set limits in amount or number; be thrifty; ADJ. stinting, unstinting; CF. stint: savings; supply; allotted amount of work; assigned portion of work; limitation; Ex. two-year stint in the army; Ex. without stint NOUN/VERB/ADJECTIVE
+stipend pay for services NOUN
 stipple paint or draw with dots or short strokes VERB/NOUN  
 stipulate state as a necessary condition (of an agreement); make express conditions; specify; Ex. He stipulated payment in advance VERB  
 stock standard; kept regularly in stock or supply; typical; routine; common; Ex. stock sizes of paper; Ex. stock excuse/character; N: goods for sale in a shop; OP. unique ADJECTIVE/NOUN  
@@ -4718,9 +4691,8 @@ striated marked with parallel bands; striped; grooved; Ex. striated rocks; V. st
 stricture severe and adverse criticism; critical comments; limit or restriction NOUN  
 strident loud and harsh; insistent; N. stridency ADJECTIVE/NOUN  
 stringent (of rules) binding; rigid; marked by scarcity of money; Ex. stringent economic conditions ADJECTIVE  
-strut pompous walk; V: walk in a self-important manner VERB/NOUN  
-strut supporting bar; CF. airplane wing NOUN  
-studied carefully contrived; calculated; unspontaneous; deliberate; thoughtful; Ex. studied remark ADJECTIVE  
+strut pompous walk; V: walk in a self-important manner; supporting bar; CF. airplane wing VERB/NOUN
+studied carefully contrived; calculated; unspontaneous; deliberate; thoughtful; Ex. studied remark ADJECTIVE
 stultify make stupid in mind; cause to appear or become stupid or inconsistent; suppress; frustrate or hinder; Ex. stultifying effect of uninteresting work; Ex. stultify free expression VERB  
 stupefy stun; make numb (as with a drug); amaze VERB  
 stupor state of being stupefied; state of apathy; daze; lack of awareness NOUN  
@@ -5102,8 +5074,7 @@ tramp walk with a heavy step; travel on foot; N: vagrant; one who travels aimles
 trample step heavily with the feet; crush under the feet VERB  
 tread walk; trample; N: grooved face of a tire; horizontal part of a step VERB/NOUN  
 vagary capricious happening; caprice; whim; CF. wander NOUN  
-vagrant wandering from place to place; roving; stray; moving in a random fashion; Ex. vagrant thoughts; N. vagrancy ADJ./NOUN  
-vagrant homeless wanderer NOUN  
+vagrant wandering from place to place; roving; stray; moving in a random fashion; Ex. vagrant thoughts; N. vagrancy ADJ./NOUN
 vainglorious boastful; excessively conceited; N. vainglory: great vanity ADJ./NOUN  
 valedictory pertaining to farewell; N: farewell address (esp. at graduation exercises) ADJ./NOUN  
 valediction saying farewell; expression of leave-taking NOUN  
@@ -5113,8 +5084,8 @@ sound in good condition; showing good judgment or good sense; thorough; complete
 validate make valid; confirm; ratify VERB  
 valor bravery; ADJ. valiant: possessing valor; brave NOUN/ADJ.  
 vampire ghostly being that sucks the blood of the living NOUN  
-vanguard forerunners; foremost position of an army; advance forces; foremost position in a trend or movement; CF. rearguard NOUN  
-avant-garde group of artists whose work is based on the newest ideas and methods; CF. vanguard NOUN  
+vanguard forerunners; foremost position of an army; advance forces; foremost position in a trend or movement; CF. rearguard NOUN
+avant-garde group of artists whose work is based on the newest ideas and methods; CF. vanguard NOUN
 vantage position giving an advantage (such as a strategic point); CF. vantage point NOUN  
 vapid lacking liveliness; dull and unimaginative; insipid and flavorless; Ex. vapid lecture ADJ.  
 vaporize turn into vapor (steam, gas, fog, etc.) VERB  
@@ -5129,14 +5100,13 @@ velocity speed NOUN
 venal capable of being bribed; corrupt; CF. vernal ADJ.  
 vendetta blood feud (esp. between two families); CF. Nina Williams NOUN  
 vendor seller NOUN  
-veneer thin surface layer (of good quality wood, glued to a base of inferior material); cover; surface show; facade; V. NOUN/VERB  
+veneer thin surface layer (of good quality wood, glued to a base of inferior material); cover; surface show; facade; NOUN/VERB
 venerable deserving high respect; commanding respect; CF. command: deserve and get ADJ.  
 venerate revere; treat with great respect VERB  
 venial (of a fault or sin) forgivable; trivial ADJ.  
 venison meat of a deer; CF. cow: beef; CF. pig: pork, ham; CF. calf: veal; CF. sheep: mutton; CF. lamb: lamb NOUN  
 venom poison (of an animal); hatred; Ex. remarks full of venom; ADJ. venomous NOUN/ADJ.  
-vent small opening; outlet (as of fumes or a gas); Ex. He gave vent to his anger by kicking the chair. NOUN  
-vent release or discharge through a vent; express (esp. unfairly); utter; Ex. He vented his wrath on his family VERB  
+vent small opening; outlet (as of fumes or a gas); Ex. He gave vent to his anger by kicking the chair. NOUN/VERB
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 82
@@ -5269,8 +5239,7 @@ ambush act of lying in wait to attack by surprise; sudden attack made from a con
 wean accustom a baby not to nurse; accustom (the young of a mammal) to take nourishment other than by suckling; give up a cherished activity; cause to gradually leave (an interest or habit); Ex. wean oneself from cigarettes VERB  
 weather pass safely through (a storm or difficult period); endure the effects of weather or other forces VERB  
 welt raised mark from a beating or whipping NOUN  
-welter confusion; turmoil; confused mass; bewildering jumble; Ex. welter of data NOUN  
-welter wallow (as in mud or high seas); lie soaked (as in blood); Ex. The victims weltered in their blood. VERB  
+welter wallow (as in mud or high seas); lie soaked (as in blood); Ex. The victims weltered in their blood.; confusion; turmoil; confused mass; bewildering jumble; Ex. welter of data VERB/NOUN
 wheedle deceive, persuade, or obtain by flattery; cajole; coax; Ex. wheedle a promise out of her VERB  
 whelp young animal (esp. of the dog or cat family); young wolf, dog, tiger, etc. NOUN  
 whet sharpen; stimulate; Ex. whet someone's appetite VERB  

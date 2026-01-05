@@ -11,9 +11,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,16 +33,26 @@ public class WordsUtils {
   private static List<WordEntry> parseFile(Path filePath) throws IOException {
     try (Stream<String> lines = Files.lines(filePath)) {
       ImmutableList.Builder<WordEntry> wordEntryBuilder = new ImmutableList.Builder<>();
+      Set<String> uniqueWords = new HashSet<>();
+      Set<String> duplicateWords = new HashSet<>();
       for (String line : (Iterable<String>) lines::iterator) {
         try {
           WordEntry entry = parseLine(line);
           if (entry != null) {
             wordEntryBuilder.add(entry);
+            boolean newWordAdded = uniqueWords.add(entry.word());
+            if (!newWordAdded) {
+              duplicateWords.add(entry.word());
+            }
           }
         } catch (Exception e) {
           throw new RuntimeException("Failed to parse line: \"" + line + "\"", e);
         }
       }
+      if (!duplicateWords.isEmpty()) {
+        System.out.println("Duplicate words in list: " + duplicateWords);
+      }
+
       return wordEntryBuilder.build();
     }
   }

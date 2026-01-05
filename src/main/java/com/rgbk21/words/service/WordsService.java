@@ -58,7 +58,7 @@ public class WordsService {
 
     // Save all words to database
     List<Word> savedWords = wordRepository.saveAll(words);
-    LOGGER.atInfo().log("Populate DB with %d words.", savedWords.size());
+    LOGGER.atInfo().log("Populated DB with %d words.", savedWords.size());
 
     return savedWords.size();
   }
