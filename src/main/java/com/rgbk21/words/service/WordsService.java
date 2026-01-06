@@ -42,6 +42,10 @@ public class WordsService {
     return wordRepository.findByWordStartingWith(alphabet);
   }
 
+  public Iterable<Word> findWordsThatEndWith(String word) {
+    return wordRepository.findWordsByWordEndingWith(word);
+  }
+
   @Transactional
   public long populateDatabaseFromFile() throws IOException, URISyntaxException {
     // Clear existing words. More efficient that `deleteAll`. Apparently.

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface WordRepository extends JpaRepository<Word, Long> {
   List<Word> findByWordStartingWith(String alphabet);
+
+  List<Word> findWordsByWordEndingWith(String word);
 }

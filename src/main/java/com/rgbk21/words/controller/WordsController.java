@@ -2,6 +2,7 @@ package com.rgbk21.words.controller;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import com.google.common.flogger.FluentLogger;
 import com.rgbk21.words.model.Word;
 import com.rgbk21.words.service.WordsService;
@@ -9,8 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @CrossOrigin(
     origins = {
@@ -82,6 +82,30 @@ public class WordsController {
       allWords = wordsService.findWordsThatStartWith(queryAlphabet);
     }
 //    System.out.println(allWords);
+    if (allWords == null) {
+      return ResponseEntity.notFound().build();
+    } else {
+      return ResponseEntity.ok(allWords);
+    }
+  }
+
+  @RequestMapping(value = "wordsEndingIn", method = RequestMethod.GET)
+  public ResponseEntity<Iterable<Word>> getAllWordsEndingIn(@RequestParam Map<String, String> queryParameters) {
+    String words = queryParameters.getOrDefault("words", "");
+    List<String> wordsList = Arrays.stream(words.split(",")).toList();
+    System.out.println("words: " + wordsList);
+    Iterable<Word> allWords = null;
+    Set<Word> matchingWords = new HashSet<>();
+    if (!Objects.equals(words, "")) {
+      for (String word : wordsList) {
+        List<Word> words1 = Lists.newArrayList(wordsService.findWordsThatEndWith(word));
+        matchingWords.addAll(words1);
+      }
+    }
+
+    allWords = Lists.newArrayList(matchingWords);
+
+    System.out.println(allWords);
     if (allWords == null) {
       return ResponseEntity.notFound().build();
     } else {
